@@ -1,7 +1,7 @@
 .DS_Store
 .env
 .eslintrc.js
-dist/main.js
+dist
 data
 node_modules
 npm-debug.log
