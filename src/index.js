@@ -4,6 +4,6 @@ import ReactDOM from 'react-dom';
 const title = 'Hello World!';
 
 ReactDOM.render(
-  <div></div>,
+  <div>{title}</div>,
   document.getElementById('app')
 );
