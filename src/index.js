@@ -22,7 +22,7 @@ function FontsContainer() {
         <ul>
           {fonts.map((font, index) => (
             <li key={index}>
-              {font.name}
+              {font.family}
             </li>
           ))}
         </ul>
