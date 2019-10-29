@@ -1,3 +1,6 @@
+// dotenv for process.env keys
+require('dotenv').config()
+
 const path = require('path');
 
 // express
