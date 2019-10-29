@@ -14,7 +14,7 @@ function FontsContainer() {
     fetchFonts();
   }, []);
 
-  console.log(fonts)
+  // Google Fonts API returns 960 fonts
 
   return (
     <div>
