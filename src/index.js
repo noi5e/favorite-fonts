@@ -14,20 +14,11 @@ function FontsContainer() {
     fetchFonts();
   }, []);
 
-  // <ul>
-  //   {fonts.map(font => (
-  //     <li key={font.index}>
-  //       {font.name}
-  //     </li>
-  //   ))}
-  // </ul>
-
   console.log(fonts)
 
   return (
     <div>
       {fonts ? (
-        // "Fonts are here!"
         <ul>
           {fonts.map((font, index) => (
             <li key={index}>
