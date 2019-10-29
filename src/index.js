@@ -8,22 +8,33 @@ function FontsContainer() {
   useEffect(() => {
     const fetchFonts = async() => {
       const result = await axios('/api/get_all_fonts');
-      setFonts(result.data);    
+      setFonts(result.data);
     }
 
     fetchFonts();
-  }, [fonts]);
+  }, []);
 
-  // {fonts.map((item, index) => (
-  //   <li key={item.index}>
-  //     {item.name}
-  //   </li>
-  // ))}
+  // <ul>
+  //   {fonts.map(font => (
+  //     <li key={font.index}>
+  //       {font.name}
+  //     </li>
+  //   ))}
+  // </ul>
+
+  console.log(fonts)
 
   return (
     <div>
       {fonts ? (
-        "Fonts are here!"
+        // "Fonts are here!"
+        <ul>
+          {fonts.map((font, index) => (
+            <li key={index}>
+              {font.name}
+            </li>
+          ))}
+        </ul>
       ) : (
         "Loading..."
       )}
