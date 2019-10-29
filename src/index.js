@@ -23,9 +23,9 @@ function FontsContainer() {
   return (
     <div>
       {fonts ? (
-        Fonts are here!
+        "Fonts are here!"
       ) : (
-        Loading...
+        "Loading..."
       )}
     </div>
   );
