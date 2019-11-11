@@ -1,0 +1,217 @@
+#header-logo {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 24px;
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+#sample-text-input, #search-input, #font-size-select, #reset-button {
+  box-shadow: none !important;
+  -moz-box-shadow: none !important;
+  -webkit-box-shadow: none !important;
+  outline:none !important;
+  border: 1px solid #ced4da
+}
+
+#search-input, #reset-button {
+  border-radius: 0;
+}
+
+.font-author {
+  opacity: 0.6;
+}
+
+.font-author, .font-name {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+}
+
+.font-card {
+  margin: 60px 10px;
+  border-top: 1px solid #666;
+  padding: 10px;
+}
+
+.font-name {
+  font-weight: bold;
+}
+
+.like-button {
+  font-size: 24px;
+  color: #ff5252;
+  cursor: pointer;
+  float: right;
+  margin-top: 5px;
+}
+
+.sample-text {
+  font-size: 40px;
+}
+
+a#nav-link {
+  opacity: 0.6;
+  font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+  font-weight: 350;
+  text-transform: uppercase;
+  font-size: 14px;
+  cursor: pointer;
+  margin: auto 5px;
+}
+
+body {
+  margin: 0px 0px;
+}
+
+/* this media query is for screens smaller than 600px, eg. smartphones. it removes the CSS grid and collapses the layout into what is essentially one column. */
+
+@media (max-width: 599px) {
+
+  #header-logo {
+    font-size: 36px;
+    text-align: center;
+    border-bottom: 1px solid #ced4da;
+  }
+
+  a#nav-link {
+    display: block;
+    text-align: center;
+    font-size: 24px;
+    border-bottom: 1px solid #ced4da;
+  }
+
+  #search-input, #font-size-select, #sample-text-input, .input-group-append, #reset-button {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+
+  #font-size-select {
+    text-align-last: center;
+  }
+
+  .input-group-append {
+    display: block;
+    width: 100%;
+  }
+
+}
+
+/* the following media query contains rules for any resolution larger than 600px. its CSS constructs the grid to display the header and font cards in rows and columns. */
+
+@media (min-width: 600px) {
+
+  #container {
+    display: grid;
+    grid-template-rows: 90px 1fr;
+  }
+
+  #font-card-container {
+    justify-content: center;
+    grid-column-gap: 50px;
+    grid-area: 2 / 1 / 3 / 5;
+    display: grid;
+  }
+  
+  #header-container, #header-logo, #nav {
+    z-index: 999;
+    background: rgba(255, 255, 255, 1);
+  }
+
+  #header-container {
+    grid-area: 1 / 1 / 2 / 5;
+    grid-template-rows: 52px 38px;
+    display: grid;
+    position: fixed;
+    width: 100%;
+  }
+
+  #header-logo {
+    margin-left: 10px;
+    align-self: center;
+    grid-area: 1 / 1 / 2 / 3;
+  }
+
+  #nav {
+    grid-area: 1 / 3 / 2 / 5;
+    justify-self: end;
+    align-self: center;
+    margin-right: 10px;
+  }
+
+  #search-tools {
+    grid-area: 2 / 1 / 3 / 5;
+  }
+
+}
+
+/* the following media queries increase the number of #font-card-containers when resolution gets big */
+
+@media (min-width: 600px) and (max-width: 749px) {
+
+  #font-card-container {
+    grid-template-columns: repeat(2, 44%);
+  }  
+
+}
+
+@media (min-width: 750px) and (max-width: 1599px) {
+
+  #font-card-container {
+    grid-template-columns: repeat(3, 28%);
+  }
+  
+}
+
+@media (min-width: 1600px) {
+
+  #font-card-container {
+    grid-template-columns: repeat(4, 20%);
+  }
+
+}
+
+/*the following media queries increase the size of #search-input so that the default text doesn't get scrunched*/
+
+@media (min-width: 600px) and (max-width: 679px) {
+
+  #search-input {
+    width: 25%;
+  }
+
+  #sample-text-input {
+    width: 40%;
+  }
+
+}
+
+@media (min-width: 680px) and (max-width: 839px) {
+
+  #search-input {
+    width: 20%;
+  }
+
+  #font-size-select {
+    width: 15%;
+  }
+
+  #sample-text-input {
+    width: 55%;
+  }
+
+}
+
+@media (min-width: 840px) {
+
+  #search-input {
+    width: 15%;
+  }
+
+  #font-size-select {
+    width: 8%;
+  }
+
+  #sample-text-input {
+    width: 65%;
+  }
+
+}
