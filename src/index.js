@@ -11,6 +11,7 @@ function App() {
     const fetchFonts = async() => {
       const result = await axios('/api/get_all_fonts');
       setFonts(result.data);
+      console.log(result.data);
     }
 
     fetchFonts();
@@ -55,7 +56,9 @@ function App() {
             </div>
           </div>
           <div id="font-card-container">
-
+            {fonts.map((font, index) => (
+              <FontCard key={index} fontName={font.family} author={'Christian Robertson'} sampleText={'The quick brown fox jumped over the lazy dog.'} />
+            ))}
           </div>
         </div>
       ) : (
