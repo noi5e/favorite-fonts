@@ -10,8 +10,8 @@ function App() {
   useEffect(() => {
     const fetchFonts = async() => {
       const result = await axios('/api/get_all_fonts');
-      setFonts(result.data);
-      console.log(result.data);
+      setFonts(result.data.slice(0, 8));
+      // console.log(result.data);
     }
 
     fetchFonts();
