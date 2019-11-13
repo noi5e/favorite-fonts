@@ -17,16 +17,6 @@ function App() {
     fetchFonts();
   }, []);
 
-  // Google Fonts API returns 960 fonts
-
-  // <ul>
-  //   {fonts.map((font, index) => (
-  //     <li key={index}>
-  //       {font.family}
-  //     </li>
-  //   ))}
-  // </ul>
-
   return (
     <div>
       {fonts ? (
@@ -67,10 +57,6 @@ function App() {
     </div>
   );
 }
-
-// <div id="font-card-container">
-
-// </div>
 
 ReactDOM.render(
   <App />,
