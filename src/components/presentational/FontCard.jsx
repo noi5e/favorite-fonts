@@ -2,23 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Helmet from 'react-helmet';
 
-// let link = `https://fonts.googleapis.com/css?family=${search}&display=swap`;
-
-// <link
-//   href={link}
-//   rel="stylesheet"
-//   media="none"
-//   onload="if(media!='all')media='all'"
-// />
-
 class FontCard extends React.Component {
 
   render() {
 
     const query = this.props.fontName.split(" ").join("+");
     const link = `https://fonts.googleapis.com/css?family=${query}&display=swap`;
-
-    // fontFamily: `${this.props.fontName}, ${backup}
 
     return (
       <div className="font-card">
