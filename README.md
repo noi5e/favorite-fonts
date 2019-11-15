@@ -1,3 +1,5 @@
+Pre-work requirement for admission to Chingu remote dev cohorts: https://github.com/chingu-voyages/voyage-prework-tier3-favfonts
+
 ## structure
 - header with navigation
   - catalog, featured, articles, about
