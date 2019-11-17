@@ -11,9 +11,9 @@ export default function(state = initialState, action) {
       return Object.assign({}, state, { isFetching: true });
       
     case RECEIVE_FONTS:
-      return Object.assign({}, state, { isFetching: false });
+      return Object.assign({}, state, { isFetching: false, fonts: action.fonts });
 
     default:
-      return state;   
+      return state;
   }
 }

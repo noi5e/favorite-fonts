@@ -1,21 +1,23 @@
-// import React from 'react';
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React from 'react';
+import { connect } from 'react-redux';
+import { fetchFonts } from '../../redux/actions';
 
 import FontCard from '../presentational/FontCard.jsx';
 
-export default function Main(props) {
+const Main = ({ fonts, fetchFonts }) => {
 
-  const [fonts, setFonts] = useState([]);
+  // const [fonts, setFonts] = useState([]);
 
-  useEffect(() => {
-    const fetchFonts = async() => {
-      const result = await axios('/api/get_all_fonts');
-      setFonts(result.data.slice(0, 8));
-    }
+  // useEffect(() => {
+  //   const fetchFonts = async() => {
+  //     const result = await axios('/api/get_all_fonts');
+  //     setFonts(result.data.slice(0, 8));
+  //   }
 
-    fetchFonts();
-  }, []);
+  //   fetchFonts();
+  // }, []);
+
+  fetchFonts();
 
   const fontCards = fonts ? (
     fonts.map((font, index) => (
@@ -32,6 +34,19 @@ export default function Main(props) {
   );
 }
 
-// export default connect(
+const mapStateToProps = state => ({
+  fonts: state.fonts
+});
 
-// )(Main);
+// const mapDispatchToProps = dispatch => ({
+//   getAllFonts: () => {
+//     dispatch(fetchFonts())
+//   }
+// });
+
+const mapDispatchToProps = { fetchFonts };
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Main);

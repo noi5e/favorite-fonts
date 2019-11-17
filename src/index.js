@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 
-// import { Provider } from 'react-redux';
-// import store from './redux/store';
+import { Provider } from 'react-redux';
+import store from './redux/store';
 
 import Main from './components/container/Main.jsx';
 
 ReactDOM.render(
-  // <Provider store={store}>
+  <Provider store={store}>
     <div id="container">
       <div id="header-container">
         <div id="header-logo"><b>Qoogle</b> Fonts</div>
@@ -35,7 +35,8 @@ ReactDOM.render(
         </div>
       </div>
       <Main />
-    </div>,
+    </div>
+  </Provider>,
   document.getElementById('app')
 );
 

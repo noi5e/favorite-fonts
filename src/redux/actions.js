@@ -1,3 +1,5 @@
+import axios from "axios";
+
 import { REQUEST_FONTS, RECEIVE_FONTS } from "./actionTypes";
 
 export const requestFonts = () => ({
