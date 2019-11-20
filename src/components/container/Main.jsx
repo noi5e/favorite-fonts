@@ -6,17 +6,6 @@ import FontCard from '../presentational/FontCard.jsx';
 
 const Main = ({ fonts, fetchFonts }) => {
 
-  // const [fonts, setFonts] = useState([]);
-
-  // useEffect(() => {
-  //   const fetchFonts = async() => {
-  //     const result = await axios('/api/get_all_fonts');
-  //     setFonts(result.data.slice(0, 8));
-  //   }
-
-  //   fetchFonts();
-  // }, []);
-
   fetchFonts();
 
   const fontCards = fonts ? (
@@ -37,12 +26,6 @@ const Main = ({ fonts, fetchFonts }) => {
 const mapStateToProps = state => ({
   fonts: state.fonts
 });
-
-// const mapDispatchToProps = dispatch => ({
-//   getAllFonts: () => {
-//     dispatch(fetchFonts())
-//   }
-// });
 
 const mapDispatchToProps = { fetchFonts };
 
