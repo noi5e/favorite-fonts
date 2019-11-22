@@ -69,14 +69,19 @@ body {
   #header-logo {
     font-size: 36px;
     text-align: center;
-    border-bottom: 1px solid #ced4da;
+  }
+
+  #header-logo, a#nav-link {
+    background-color: #212529;
+    color: #fff;
+    border-bottom: 1px solid #fff;
   }
 
   a#nav-link {
     display: block;
     text-align: center;
     font-size: 24px;
-    border-bottom: 1px solid #ced4da;
+    margin: auto 0;
   }
 
   #search-input, #font-size-select, #sample-text-input, .input-group-append, #reset-button {
