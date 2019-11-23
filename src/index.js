@@ -17,6 +17,7 @@ ReactDOM.render(
           <a id="nav-link">Featured</a>
           <a id="nav-link">Articles</a>
           <a id="nav-link">About</a>
+          <a id="nav-link">Sign in with Google</a>
         </nav>
         <div id="search-tools">
           <div className="input-group">
