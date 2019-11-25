@@ -8,6 +8,18 @@ const express = require('express');
 const app = express();
 const http = require('http').Server(app);
 
+// postgres & knex
+const knex = require('knex')({
+  client: 'pg',
+  connection: {
+    host: process.env.POSTGRES_HOST,
+    user: process.env.POSTGRES_PASSWORD,
+    port: process.env.POSTGRES_PORT,
+    password: process.env.POSTGRES_PASSWORD,
+    database: 'favorite-fonts'
+  }
+})
+
 // static files
 app.use(express.static('./dist'));
 
