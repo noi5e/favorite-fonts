@@ -8,6 +8,14 @@ const express = require('express');
 const app = express();
 const http = require('http').Server(app);
 
+// passport.js
+const passport = require('passport');
+
+// initialize passport & load passport strategy
+app.use(passport.initialize());
+const GoogleOAuthStrategy = require('./server/passport/google-oauth');
+passport.use('google-oauth', GoogleOAuthStrategy)
+
 // postgres & knex
 const knex = require('knex')({
   client: 'pg',
@@ -26,6 +34,8 @@ app.use(express.static('./dist'));
 // custom routes
 const api = require('./server/routes/api');
 app.use('/api', api);
+const auth = require('./server/routes/auth');
+app.use('/auth', auth);
 
 // serve index.html
 app.get('/*', function(request, response, next) {
