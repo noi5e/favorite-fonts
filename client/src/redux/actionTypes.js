@@ -1,0 +1,2 @@
+export const REQUEST_FONTS = "REQUEST_FONTS";
+export const RECEIVE_FONTS = "RECEIVE_FONTS";
