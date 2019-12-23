@@ -8,10 +8,8 @@ const express = require('express');
 const app = express();
 const http = require('http').Server(app);
 
-// passport.js
-const passport = require('passport');
-
 // initialize passport & load passport strategy
+const passport = require('passport');
 app.use(passport.initialize());
 const GoogleOAuthStrategy = require('./server/passport/google-oauth');
 passport.use('google-oauth', GoogleOAuthStrategy)
