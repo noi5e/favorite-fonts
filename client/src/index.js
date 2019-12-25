@@ -5,7 +5,7 @@ import axios from 'axios';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 
-import Main from './components/container/Main.jsx';
+import FontCardContainer from './pages/FontCardContainer.jsx';
 
 ReactDOM.render(
   <Provider store={store}>
@@ -13,10 +13,6 @@ ReactDOM.render(
       <div id="header-container">
         <div id="header-logo"><b>Qoogle</b> Fonts</div>
         <nav id="nav">
-          <a id="nav-link">Catalog</a>
-          <a id="nav-link">Featured</a>
-          <a id="nav-link">Articles</a>
-          <a id="nav-link">About</a>
           <a href="/auth/google" id="nav-link">Sign in with Google</a>
         </nav>
         <div id="search-tools">
@@ -35,7 +31,7 @@ ReactDOM.render(
           </div>
         </div>
       </div>
-      <Main />
+      <FontCardContainer />
     </div>
   </Provider>,
   document.getElementById('app')

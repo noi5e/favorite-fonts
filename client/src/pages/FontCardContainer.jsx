@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { fetchFonts } from '../../redux/actions';
+import { fetchFonts } from '../redux/actions';
 
-import FontCard from '../presentational/FontCard.jsx';
+import FontCard from './FontCard.jsx';
 
-const Main = ({ fonts, fetchFonts }) => {
+const FontCardContainer = ({ fonts, fetchFonts }) => {
 
   fetchFonts();
 
@@ -32,4 +32,4 @@ const mapDispatchToProps = { fetchFonts };
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Main);
+)(FontCardContainer);
