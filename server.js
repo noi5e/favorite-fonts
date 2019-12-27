@@ -6,7 +6,10 @@ const path = require('path');
 // express
 const express = require('express');
 const app = express();
-const http = require('http').Server(app);
+const server = require('http').Server(app);
+
+// socket.io
+const io = require('socket.io')(server);
 
 // initialize passport & load passport strategy
 const passport = require('passport');
@@ -42,6 +45,6 @@ app.get('/*', function(request, response, next) {
 
 const port = process.env.PORT || 8080;
 
-http.listen(port, function() {
+server.listen(port, function() {
   console.log('App listening on port ' + port + '!');
 })
