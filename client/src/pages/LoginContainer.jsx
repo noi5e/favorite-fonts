@@ -11,7 +11,7 @@ const LoginContainer = props => {
     const width = 600, height = 600;
     const left = (window.innerWidth / 2) - (width / 2);
     const top = (window.innerHeight / 2) - (height / 2);
-    const url = `/auth/login?socketId=${socket.id}`;
+    const url = `/auth/google?socketId=${socket.id}`;
 
     return window.open(
       url, 
@@ -22,7 +22,7 @@ const LoginContainer = props => {
 
   return (
     <nav id="nav">
-      <a href="/auth/google" onClick={startAuth} id="nav-link">Sign in with Google</a>
+      <a onClick={startAuth} id="nav-link">Sign in with Google</a>
     </nav>
   );
 };
