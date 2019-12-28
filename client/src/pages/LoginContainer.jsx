@@ -30,7 +30,7 @@ const LoginContainer = props => {
 
   return (
     <nav id="nav">
-      <a onClick={startAuth} id="nav-link">Sign in with Google</a>
+      <a onClick={startAuth} id="nav-link">Sign in with Qoogle</a>
     </nav>
   );
 };
