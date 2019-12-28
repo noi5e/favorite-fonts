@@ -17,17 +17,11 @@ router.get('/get_all_fonts', (request, response, next) => {
       response.send(result.data.items)
     } catch(error) {
       console.log('Fetching fonts from Google API: ' + error);
-
       response.status(502).send({ error: "Unable to fetch fonts from Google API!" })
     }
   }
 
   fetchGoogleFonts();
-
-  // https://www.googleapis.com/webfonts/v1/webfonts?key=YOUR-API-KEY
-  // https://www.googleapis.com/webfonts/v1/webfonts?sort=popularity
-
-  // response.send([{ name: 'Helvetica' }])
 }); 
 
 module.exports = router;
