@@ -19,12 +19,13 @@ module.exports = new GoogleOAuthStrategy({
   session: false
 }, function(accessToken, refreshToken, profile, done) {
 
-  //  here, we query the database to see if the user exists.
-  //    if not, we create the account.
-  //    if so, we return the user-- with a JSON web token.
-  //    in both instances, we return the user via the callback function, done.
+  // here, we query the database to see if the user exists.
+  // if not, we create the account.
+  // either way, we return the encrypted JSON web token via the callback function, done
 
-  console.log(profile);
+  // profile.id = Google ID
+  // profile.name.givenName = first name
+  // profile._json.email = email
 
   return done(null, {
     token: 'thisisafaketoken!',
