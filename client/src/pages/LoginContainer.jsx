@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const LoginContainer = props => {
 
+  let popup;
+
+  useEffect(() => {
+    socket.on('login-success', data => {
+      console.log(data);
+    });
+  });
+
   const startAuth = e => {
     e.preventDefault();
-    const popup = openPopup();
+    popup = openPopup();
   };
 
   const openPopup = () => {
