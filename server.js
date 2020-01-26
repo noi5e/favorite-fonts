@@ -24,16 +24,16 @@ const GoogleOAuthStrategy = require('./server/passport/google-oauth');
 passport.use('google-oauth', GoogleOAuthStrategy)
 
 // postgres & knex
-const knex = require('knex')({
-  client: 'pg',
-  connection: {
-    host: process.env.POSTGRES_HOST,
-    user: process.env.POSTGRES_PASSWORD,
-    port: process.env.POSTGRES_PORT,
-    password: process.env.POSTGRES_PASSWORD,
-    database: 'favorite-fonts'
-  }
-});
+// const knex = require('knex')({
+//   client: 'pg',
+//   connection: {
+//     host: process.env.POSTGRES_HOST,
+//     user: process.env.POSTGRES_PASSWORD,
+//     port: process.env.POSTGRES_PORT,
+//     password: process.env.POSTGRES_PASSWORD,
+//     database: 'favorite-fonts'
+//   }
+// });
 
 // express-session
 const session = require('express-session');
