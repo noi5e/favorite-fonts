@@ -17,12 +17,14 @@ router.get('/google/callback', function(request, response, next) {
     console.log(user);
 
     const token = jwt.sign({
-      sub: user.user_id,
-      firstName: user.first_name
+      sub: user.user_id
     }, process.env.JWT_KEY);
 
     const io = request.app.get('io');
-    io.to(`${request.session.socketId}`).emit('login-success', token);
+    io.to(`${request.session.socketId}`).emit('login-success', {
+      token,
+      firstName: user.first_name
+    });
 
   })(request, response, next);
 });
