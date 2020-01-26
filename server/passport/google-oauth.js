@@ -2,7 +2,7 @@ const passport = require('passport');
 const GoogleOAuthStrategy = require('passport-google-oauth').OAuth2Strategy;
 
 // import postgres model here
-// import jwt here
+const db = require('../../db');
 
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -17,19 +17,23 @@ module.exports = new GoogleOAuthStrategy({
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
   callbackURL: process.env.APP_URL + '/auth/google/callback',
   session: false
-}, function(accessToken, refreshToken, profile, done) {
+}, async function(accessToken, refreshToken, profile, done) {
+
+  const client = await db.connect();
 
   // here, we query the database to see if the user exists.
-  // if not, we create the account.
+  const userExistsQuery = await client.query('SELECT * FROM users WHERE user_id = $1', [profile.id]);
+
+  let user;
+
+  if (userExistsQuery.rows.length === 0) {
+    user = await client.query('INSERT INTO users(user_id, email, first_name) VALUES($1, $2, $3) RETURNING *', [profile.id, profile._json.email, profile.name.givenName]);
+  } else {
+    // if not, we create the account.
+    user = userExistsQuery.rows[0];
+  };
+
   // either way, we return the encrypted JSON web token via the callback function, done
-
-  // profile.id = Google ID
-  // profile.name.givenName = first name
-  // profile._json.email = email
-
-  return done(null, {
-    token: 'thisisafaketoken!',
-    username: 'will'
-  });
+  return done(null, user);
 
 });
