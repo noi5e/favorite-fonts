@@ -12,9 +12,12 @@ const LoginContainer = ({ user, userLoginSuccess }) => {
     socket.on('login-success', data => {
       // response is { token, firstName }
       authenticateUser(JSON.stringify(data));
-      userLoginSuccess(user);
+      userLoginSuccess({ firstName: data.firstName });
       popup.close();
     });
+
+    // close the socket connection
+    return () => { socket.disconnect(true); }
   });
 
   const checkPopup = () => {
