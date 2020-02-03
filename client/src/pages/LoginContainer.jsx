@@ -1,18 +1,36 @@
 import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 
-const LoginContainer = props => {
+import { userLoginSuccess } from '../redux/actions';
+import { authenticateUser, getUser } from "../utilities/authentication";
+
+const LoginContainer = ({ user, userLoginSuccess }) => {
 
   let popup;
 
   useEffect(() => {
     socket.on('login-success', data => {
-      console.log(data);
+      // response is { token, firstName }
+      authenticateUser(JSON.stringify(data));
+      userLoginSuccess(user);
+      popup.close();
     });
   });
+
+  const checkPopup = () => {
+    const check = setInterval(() => {
+      if (!popup || popup.closed || popup.closed === undefined) {
+        clearInterval(check);
+        // re-enable the login button
+      }
+    }, 1000);
+  };
 
   const startAuth = e => {
     e.preventDefault();
     popup = openPopup();
+    checkPopup();
+    // disable the login button
   };
 
   const openPopup = () => {
@@ -35,4 +53,13 @@ const LoginContainer = props => {
   );
 };
 
-export default LoginContainer;
+const mapStateToProps = state => ({
+  user: state.user
+});
+
+const mapDispatchToProps = { userLoginSuccess };
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(LoginContainer);
