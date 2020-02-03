@@ -1,6 +1,15 @@
 import axios from "axios";
 
-import { REQUEST_FONTS, RECEIVE_FONTS } from "./actionTypes";
+import { 
+  REQUEST_FONTS, 
+  RECEIVE_FONTS, 
+  USER_LOGIN_SUCCESS 
+} from "./actionTypes";
+
+export const userLoginSuccess = user => ({
+  type: USER_LOGIN_SUCCESS,
+  user
+});
 
 export const requestFonts = () => ({
   type: REQUEST_FONTS

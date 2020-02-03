@@ -1,8 +1,13 @@
-import { REQUEST_FONTS, RECEIVE_FONTS } from "../actionTypes";
+import { 
+  REQUEST_FONTS, 
+  RECEIVE_FONTS,
+  USER_LOGIN_SUCCESS
+} from "../actionTypes";
 
 const initialState = {
   isFetching: true,
-  fonts: []
+  fonts: [],
+  user: {}
 };
 
 export default function(state = initialState, action) {
@@ -12,6 +17,9 @@ export default function(state = initialState, action) {
       
     case RECEIVE_FONTS:
       return Object.assign({}, state, { isFetching: false, fonts: action.fonts });
+
+    case USER_LOGIN_SUCCESS:
+      return Object.assign({}, state, { user: action.user });
 
     default:
       return state;
