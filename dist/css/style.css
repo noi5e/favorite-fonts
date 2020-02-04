@@ -48,7 +48,7 @@
   font-size: 40px;
 }
 
-a#nav-link {
+.nav-link {
   opacity: 0.6;
   font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
   font-weight: 350;
@@ -71,13 +71,17 @@ body {
     text-align: center;
   }
 
-  #header-logo, a#nav-link {
+  #header-logo, .nav-link {
     background-color: #6c757d;
-    color: #fff;
+    color: #fff !important;
     border-bottom: 1px solid #fff;
   }
 
-  a#nav-link {
+  .auth-link {
+    font-weight: bold;
+  }
+
+  .nav-link {
     display: block;
     text-align: center;
     font-size: 24px;
@@ -104,6 +108,20 @@ body {
 /* the following media query contains rules for any resolution larger than 600px. its CSS constructs the grid to display the header and font cards in rows and columns. */
 
 @media (min-width: 600px) {
+
+  .login-button {
+    border: solid 1px #ced4da;
+    padding: 5px 20px;
+    border-radius: 40px;
+  }
+
+  .nav-link {
+    display: inline !important;
+  }
+
+  .auth-link {
+    padding: 0px !important;
+  }
 
   #container {
     display: grid;
