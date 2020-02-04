@@ -5,8 +5,8 @@ const SettingsContainer = props => {
     <div id="search-tools" className="input-group">
       <input id="search-input" type="search" aria-label="search fonts" className="form-control" placeholder="Search fonts..." />
       <input id="sample-text-input" type="text" aria-label="enter sample text" className="form-control" placeholder="Type something!" />
-      <select id="font-size-select" className="custom-select">
-        <option selected value="24px">24px</option>
+      <select id="font-size-select" defaultValue="24px" className="custom-select">
+        <option value="24px">24px</option>
         <option value="40px">40px</option>
         <option value="64px">64px</option>
         <option value="96px">96px</option>
