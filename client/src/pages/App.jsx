@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+
+import { userLoginSuccess } from "../redux/actions";
+import { isUserAuthenticated, getUser, authenticateUser } from "../utilities/authentication";
 
 import Header from "./Header.jsx";
 import FontCardContainer from "./FontCardContainer.jsx";
 
-const App = props => {
+const App = ({ userLoginSuccess }) => {
+
+  useEffect(() => {
+    if (isUserAuthenticated()) {
+      const firstName = JSON.parse(getUser()).firstName;
+      userLoginSuccess({ firstName });
+    };
+  });
+
   return (
     <div id="container">
       <Header />
@@ -12,4 +24,9 @@ const App = props => {
   );
 };
 
-export default App;
+const mapDispatchToProps = { userLoginSuccess };
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(App);
