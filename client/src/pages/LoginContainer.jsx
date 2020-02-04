@@ -51,7 +51,7 @@ const LoginContainer = ({ user, userLoginSuccess }) => {
 
   return (
     <nav id="nav">
-      <a onClick={startAuth} id="nav-link">Sign in with Qoogle</a>
+      <a onClick={startAuth} className="nav-link login-button">Sign in with <b>Qoogle</b></a>
     </nav>
   );
 };
