@@ -1,3 +1,4 @@
 export const REQUEST_FONTS = "REQUEST_FONTS";
 export const RECEIVE_FONTS = "RECEIVE_FONTS";
 export const USER_LOGIN_SUCCESS = "USER_LOGIN_SUCCESS";
+export const USER_LOGOUT = "USER_LOGOUT";

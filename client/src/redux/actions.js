@@ -3,12 +3,17 @@ import axios from "axios";
 import { 
   REQUEST_FONTS, 
   RECEIVE_FONTS, 
-  USER_LOGIN_SUCCESS 
+  USER_LOGIN_SUCCESS,
+  USER_LOGOUT
 } from "./actionTypes";
 
 export const userLoginSuccess = user => ({
   type: USER_LOGIN_SUCCESS,
   user
+});
+
+export const userLogout = () => ({
+  type: USER_LOGOUT
 });
 
 export const requestFonts = () => ({

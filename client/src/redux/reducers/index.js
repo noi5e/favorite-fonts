@@ -1,11 +1,12 @@
 import { 
   REQUEST_FONTS, 
   RECEIVE_FONTS,
-  USER_LOGIN_SUCCESS
+  USER_LOGIN_SUCCESS,
+  USER_LOGOUT
 } from "../actionTypes";
 
 const initialState = {
-  isFetching: true,
+  isFetching: false,
   fonts: [],
   user: {}
 };
@@ -20,6 +21,9 @@ export default function(state = initialState, action) {
 
     case USER_LOGIN_SUCCESS:
       return Object.assign({}, state, { user: action.user });
+
+    case USER_LOGOUT:
+      return Object.assign({}, state, { user: {} });
 
     default:
       return state;
