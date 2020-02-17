@@ -13,7 +13,7 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case REQUEST_FONTS: 
+    case REQUEST_FONTS:
       return Object.assign({}, state, { isFetching: true });
       
     case RECEIVE_FONTS:
