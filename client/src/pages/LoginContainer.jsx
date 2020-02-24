@@ -1,10 +1,11 @@
+/* eslint-disable no-undef */
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { userLoginSuccess } from '../redux/actions';
-import { authenticateUser, getUser } from "../utilities/authentication";
+import { authenticateUser } from "../utilities/authentication";
 
-const LoginContainer = ({ user, userLoginSuccess }) => {
+const LoginContainer = ({ userLoginSuccess }) => {
 
   let popup;
 
