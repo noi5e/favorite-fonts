@@ -12,9 +12,7 @@ router.get('/google', addSocketToSession, passport.authenticate('google-oauth', 
 
 router.get('/google/callback', function(request, response, next) {
   passport.authenticate('google-oauth', function(error, user) {
-    if (error) { console.log(error); };
-
-    console.log(user);
+    if (error) { console.log(error); }
 
     const token = jwt.sign({
       sub: user.user_id
