@@ -1,4 +1,7 @@
+export const DISLIKE_FONT = "UNLIKE FONT";
+export const LIKE_FONT = "LIKE FONT";
 export const REQUEST_FONTS = "REQUEST_FONTS";
 export const RECEIVE_FONTS = "RECEIVE_FONTS";
+export const UPDATE_FAVES = "UPDATE_FAVES";
 export const USER_LOGIN_SUCCESS = "USER_LOGIN_SUCCESS";
 export const USER_LOGOUT = "USER_LOGOUT";
