@@ -3,13 +3,15 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
 
-import { requestFonts, receiveFonts, updateFaves } from "../redux/actions";
+import { dislikeFont, likeFont, requestFonts, receiveFonts, updateFaves } from "../redux/actions";
 import { getUser, isUserAuthenticated } from "../utilities/authentication";
 import FontCard from "./FontCard.jsx";
 
 const FontCardContainer = ({
+  dislikeFont,
   fonts,
   isFetching,
+  likeFont,
   requestFonts,
   receiveFonts,
   updateFaves,
@@ -55,7 +57,11 @@ const FontCardContainer = ({
         data: { fontName }
       });
 
-      console.log(result);
+      if (result.data.liked) {
+        likeFont(result.data.font);
+      } else {
+        dislikeFont(result.data.font);
+      }
     })();
   };
 
@@ -82,6 +88,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
+  dislikeFont,
+  likeFont,
   requestFonts,
   receiveFonts,
   updateFaves
