@@ -5,6 +5,7 @@ import Helmet from "react-helmet";
 export default function FontCard(props) {
   const query = props.fontName.split(" ").join("+");
   const link = `https://fonts.googleapis.com/css?family=${query}&display=swap`;
+  const heartStyle = props.liked ? "fas fa-heart like-button" : "far fa-heart like-button";
 
   return (
     <div className="font-card">
@@ -17,7 +18,7 @@ export default function FontCard(props) {
         />
       </Helmet>
       <i
-        className="far fa-heart like-button"
+        className={heartStyle}
         onClick={() => {
           props.handleFave(props.fontName);
         }}
@@ -33,5 +34,6 @@ export default function FontCard(props) {
 FontCard.propTypes = {
   fontName: PropTypes.string.isRequired,
   // fontSize: PropTypes.num.isRequired,
-  sampleText: PropTypes.string.isRequired
+  sampleText: PropTypes.string.isRequired,
+  liked: PropTypes.bool.isRequired
 };
