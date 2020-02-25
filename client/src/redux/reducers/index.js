@@ -11,7 +11,6 @@ import {
 const initialState = {
   isFetching: false,
   fonts: [],
-  faveFonts: [],
   user: {}
 };
 
@@ -61,12 +60,7 @@ export default function(state = initialState, action) {
 
       for (let i = 0; i < action.faves.length; i++) {
         for (let j = 0; j < modifiedFonts.length; j++) {
-          console.log(
-            "fonts: " + action.faves[i].family + ", " + modifiedFonts[j].family
-          );
-
           if (modifiedFonts[j].family === action.faves[i].family) {
-            console.log("liking " + modifiedFonts[j].family);
             modifiedFonts[j].liked = true;
             break;
           }
