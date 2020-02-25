@@ -67,6 +67,7 @@ const FontCardContainer = ({
           author={"Christian Robertson"}
           handleFave={handleFave}
           sampleText={"The quick brown fox jumped over the lazy dog."}
+          liked={font.liked}
         />
       ))
     : "Loading...";
