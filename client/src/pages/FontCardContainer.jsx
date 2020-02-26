@@ -2,21 +2,31 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import axios from "axios";
+import debounce from "lodash.debounce";
 
-import { dislikeFont, likeFont, requestFonts, receiveFonts, updateFaves } from "../redux/actions";
+import { dislikeFont, likeFont, loadDisplayFonts, requestFonts, receiveFonts, updateFaves } from "../redux/actions";
 import { getUser, isUserAuthenticated } from "../utilities/authentication";
 import FontCard from "./FontCard.jsx";
 
 const FontCardContainer = ({
+  displayedFonts,
   dislikeFont,
   fonts,
   isFetching,
   likeFont,
+  loadDisplayFonts,
+  moreFontsToLoad,
   requestFonts,
   receiveFonts,
   updateFaves,
   user
 }) => {
+  const checkForBottomScroll = debounce(() => {
+    if ((window.innerHeight + document.documentElement.scrollTop) >= document.body.offsetHeight && moreFontsToLoad) {
+      loadDisplayFonts();
+    }
+  }, 100)
+
   const fetchFaves = async () => {
     const favesResult = await axios({
       url: "/api/get_user_faves",
@@ -32,12 +42,16 @@ const FontCardContainer = ({
       (async () => {
         requestFonts();
         const fontsResult = await axios("/api/get_all_fonts");
-        const firstEightFonts = fontsResult.data.slice(0, 8);
-        receiveFonts(firstEightFonts);
+        // const firstEightFonts = fontsResult.data.slice(0, 8);
+        receiveFonts(fontsResult.data);
 
         if (isUserAuthenticated()) {
           fetchFaves();
         }
+
+        window.addEventListener("scroll", checkForBottomScroll)
+
+        return () => window.removeEventListener('scroll', checkForBottomScroll);
       })();
     }
   }, []);
@@ -66,7 +80,7 @@ const FontCardContainer = ({
   };
 
   const fontCards = !isFetching
-    ? fonts.map((font, index) => (
+    ? displayedFonts.map((font, index) => (
         <FontCard
           key={index}
           fontName={font.family}
@@ -82,14 +96,17 @@ const FontCardContainer = ({
 };
 
 const mapStateToProps = state => ({
-  user: state.user,
+  displayedFonts: state.displayedFonts,
   fonts: state.fonts,
-  isFetching: state.isFetching
+  isFetching: state.isFetching,
+  moreFontsToLoad: state.moreFontsToLoad,
+  user: state.user
 });
 
 const mapDispatchToProps = {
   dislikeFont,
   likeFont,
+  loadDisplayFonts,
   requestFonts,
   receiveFonts,
   updateFaves
