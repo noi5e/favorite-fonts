@@ -1,5 +1,6 @@
-export const DISLIKE_FONT = "UNLIKE FONT";
-export const LIKE_FONT = "LIKE FONT";
+export const DISLIKE_FONT = "UNLIKE_FONT";
+export const LIKE_FONT = "LIKE_FONT";
+export const LOAD_DISPLAY_FONTS = "LOAD_DISPLAY_FONTS"
 export const REQUEST_FONTS = "REQUEST_FONTS";
 export const RECEIVE_FONTS = "RECEIVE_FONTS";
 export const UPDATE_FAVES = "UPDATE_FAVES";

@@ -5,12 +5,16 @@ import {
   RECEIVE_FONTS,
   UPDATE_FAVES,
   USER_LOGIN_SUCCESS,
-  USER_LOGOUT
+  USER_LOGOUT,
+  LOAD_DISPLAY_FONTS
 } from "../actionTypes";
 
 const initialState = {
   isFetching: false,
+  displayPosition: 0,
+  displayedFonts: [],
   fonts: [],
+  moreFontsToLoad: true,
   user: {}
 };
 
@@ -28,6 +32,16 @@ export default function(state = initialState, action) {
 
       return Object.assign({}, state, {
         fonts: modifiedFonts
+      });
+    }
+
+    case LOAD_DISPLAY_FONTS: {
+      const loadedFonts = state.fonts.slice(state.displayPosition, state.displayPosition + 30);
+
+      return Object.assign({}, state, {
+        displayPosition: state.displayPosition + 30,
+        displayedFonts: state.displayedFonts.concat(loadedFonts),
+        moreFontsToLoad: state.displayPosition + 30 < state.fonts.length
       });
     }
 
@@ -49,11 +63,14 @@ export default function(state = initialState, action) {
     case REQUEST_FONTS:
       return Object.assign({}, state, { isFetching: true });
 
-    case RECEIVE_FONTS:
+    case RECEIVE_FONTS: {
       return Object.assign({}, state, {
         isFetching: false,
-        fonts: action.fonts
+        fonts: action.fonts,
+        displayedFonts: action.fonts.slice(0, 32),
+        displayPosition: 32,
       });
+    }
 
     case UPDATE_FAVES: {
       const modifiedFonts = [...state.fonts];

@@ -3,6 +3,7 @@ import axios from "axios";
 import {
   DISLIKE_FONT,
   LIKE_FONT,
+  LOAD_DISPLAY_FONTS,
   REQUEST_FONTS,
   RECEIVE_FONTS,
   UPDATE_FAVES,
@@ -18,6 +19,10 @@ export const dislikeFont = font => ({
 export const likeFont = font => ({
   type: LIKE_FONT,
   font
+});
+
+export const loadDisplayFonts = () => ({
+  type: LOAD_DISPLAY_FONTS
 });
 
 export const updateFaves = faves => ({
