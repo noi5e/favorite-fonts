@@ -1,32 +1,35 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { userLoginSuccess } from "../redux/actions";
-import { isUserAuthenticated, getUser, authenticateUser } from "../utilities/authentication";
+import { isUserAuthenticated, getUser } from "../utilities/authentication";
 
 import Header from "./Header.jsx";
+import FavoritesContainer from "./FavoritesContainer.jsx";
 import FontCardContainer from "./FontCardContainer.jsx";
 
 const App = ({ userLoginSuccess }) => {
-
   useEffect(() => {
     if (isUserAuthenticated()) {
       const firstName = JSON.parse(getUser()).firstName;
       userLoginSuccess({ firstName });
-    };
+    }
   });
 
   return (
     <div id="container">
-      <Header />
-      <FontCardContainer />
+      <Router>
+        <Header />
+          <Switch>
+            <Route exact path="/" component={FontCardContainer} />
+            <Route path="/favorites" component={FavoritesContainer} />
+          </Switch>
+        </Router>
     </div>
   );
 };
 
 const mapDispatchToProps = { userLoginSuccess };
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(App);
+export default connect(null, mapDispatchToProps)(App);
