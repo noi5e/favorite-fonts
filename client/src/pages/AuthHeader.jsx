@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 import { deAuthenticateUser } from "../utilities/authentication";
 import { userLogout } from "../redux/actions";
@@ -13,15 +14,16 @@ const AuthHeader = ({ userLogout }) => {
 
   return (
     <nav id="nav">
-      <a className="nav-link auth-link">Your Favorite Fonts</a>
-      <a onClick={logoutUser} className="nav-link auth-link">Logout</a>
+      <Link to="/favorites" className="nav-link auth-link">
+        Your Favorite Fonts
+      </Link>
+      <a onClick={logoutUser} className="nav-link auth-link">
+        Logout
+      </a>
     </nav>
   );
 };
 
-const mapDispatchToProps = ({ userLogout });
+const mapDispatchToProps = { userLogout };
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(AuthHeader);
+export default connect(null, mapDispatchToProps)(AuthHeader);

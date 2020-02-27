@@ -1,25 +1,32 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
-import SettingsContainer from './SettingsContainer.jsx';
-import LoginContainer from './LoginContainer.jsx';
+import SettingsContainer from "./SettingsContainer.jsx";
+import LoginContainer from "./LoginContainer.jsx";
 import AuthHeader from "./AuthHeader.jsx";
 
 const Header = ({ user }) => {
   return (
     <div id="header-container">
-      <div id="header-logo"><b>Qoogle</b> Fonts</div>
+      <div id="header-logo">
+        <Link to="/">
+          <b>Qoogle</b> Fonts
+        </Link>
+      </div>
       {/* Syntax below checks for if the user object in state is empty or not */}
-      {(Object.keys(user).length === 0 && user.constructor === Object) ? <LoginContainer /> : <AuthHeader />}
+      {Object.keys(user).length === 0 && user.constructor === Object ? (
+        <LoginContainer />
+      ) : (
+        <AuthHeader />
+      )}
       <SettingsContainer />
-    </div>  
-    );
+    </div>
+  );
 };
 
 const mapStateToProps = state => ({
   user: state.user
 });
 
-export default connect(
-  mapStateToProps
-)(Header);
+export default connect(mapStateToProps)(Header);
