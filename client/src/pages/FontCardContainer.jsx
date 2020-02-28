@@ -48,13 +48,15 @@ const FontCardContainer = ({
         if (isUserAuthenticated()) {
           fetchFaves();
         }
-
-        window.addEventListener("scroll", checkForBottomScroll)
-
-        return () => window.removeEventListener('scroll', checkForBottomScroll);
       })();
     }
   }, []);
+
+  useEffect(() => {
+    window.addEventListener("scroll", checkForBottomScroll)
+
+    return () => window.removeEventListener('scroll', checkForBottomScroll);
+  });
 
   useEffect(() => {
     if (isUserAuthenticated() && fonts.length > 0) {
