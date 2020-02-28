@@ -14,6 +14,9 @@ const AuthHeader = ({ userLogout }) => {
 
   return (
     <nav id="nav">
+      <Link to="/" className="nav-link auth-link">
+        Home
+      </Link>
       <Link to="/favorites" className="nav-link auth-link">
         Your Favorite Fonts
       </Link>
