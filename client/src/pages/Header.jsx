@@ -10,9 +10,7 @@ const Header = ({ user }) => {
   return (
     <div id="header-container">
       <div id="header-logo">
-        <Link to="/">
           <b>Qoogle</b> Fonts
-        </Link>
       </div>
       {/* Syntax below checks for if the user object in state is empty or not */}
       {Object.keys(user).length === 0 && user.constructor === Object ? (
