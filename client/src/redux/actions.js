@@ -6,6 +6,7 @@ import {
   LOAD_DISPLAY_FONTS,
   REQUEST_FONTS,
   RECEIVE_FONTS,
+  RESET_DISPLAYED_FONTS,
   UPDATE_FAVES,
   USER_LOGIN_SUCCESS,
   USER_LOGOUT
@@ -46,6 +47,10 @@ export const requestFonts = () => ({
 export const receiveFonts = fonts => ({
   type: RECEIVE_FONTS,
   fonts
+});
+
+export const resetDisplayedFonts = () => ({
+  type: RESET_DISPLAYED_FONTS
 });
 
 export const fetchFonts = () => {

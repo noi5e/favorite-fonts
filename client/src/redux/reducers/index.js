@@ -6,7 +6,8 @@ import {
   UPDATE_FAVES,
   USER_LOGIN_SUCCESS,
   USER_LOGOUT,
-  LOAD_DISPLAY_FONTS
+  LOAD_DISPLAY_FONTS,
+  RESET_DISPLAYED_FONTS
 } from "../actionTypes";
 
 const initialState = {
@@ -71,6 +72,13 @@ export default function(state = initialState, action) {
         displayPosition: 32,
       });
     }
+
+    case RESET_DISPLAYED_FONTS:
+      return Object.assign({}, state, {
+        displayedFonts: state.fonts.slice(0, 32),
+        displayPosition: 0,
+        moreFontsToLoad: true
+      });
 
     case UPDATE_FAVES: {
       const modifiedFonts = [...state.fonts];

@@ -1,18 +1,22 @@
 /* eslint-disable react/prop-types */
-import React from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
 
 import FontCard from "./FontCard.jsx";
-import { dislikeFont, likeFont } from "../redux/actions";
+import { dislikeFont, likeFont, resetDisplayedFonts } from "../redux/actions";
 import { getUser } from "../utilities/authentication";
 
 const FavoritesContainer = ({
-  displayedFonts,
   likeFont,
   dislikeFont,
-  fonts
+  fonts,
+  resetDisplayedFonts
 }) => {
+  useEffect(() => {
+    resetDisplayedFonts();
+  }, []);
+
   const handleFave = fontName => {
     (async () => {
       const result = await axios({
@@ -52,7 +56,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   dislikeFont,
-  likeFont
+  likeFont,
+  resetDisplayedFonts
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FavoritesContainer);
