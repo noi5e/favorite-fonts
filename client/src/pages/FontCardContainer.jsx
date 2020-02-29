@@ -18,6 +18,7 @@ const FontCardContainer = ({
   moreFontsToLoad,
   requestFonts,
   receiveFonts,
+  sampleText,
   updateFaves,
   user
 }) => {
@@ -38,6 +39,8 @@ const FontCardContainer = ({
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+
     if (fonts.length === 0) {
       (async () => {
         requestFonts();
@@ -88,7 +91,7 @@ const FontCardContainer = ({
           fontName={font.family}
           author={"Christian Robertson"}
           handleFave={handleFave}
-          sampleText={"The quick brown fox jumped over the lazy dog."}
+          sampleText={sampleText}
           liked={font.liked}
         />
       ))
@@ -102,6 +105,7 @@ const mapStateToProps = state => ({
   fonts: state.fonts,
   isFetching: state.isFetching,
   moreFontsToLoad: state.moreFontsToLoad,
+  sampleText: state.sampleText,
   user: state.user
 });
 
