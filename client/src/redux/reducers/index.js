@@ -4,6 +4,7 @@ import {
   REQUEST_FONTS,
   RECEIVE_FONTS,
   UPDATE_FAVES,
+  UPDATE_SAMPLE_TEXT,
   USER_LOGIN_SUCCESS,
   USER_LOGOUT,
   LOAD_DISPLAY_FONTS,
@@ -16,6 +17,7 @@ const initialState = {
   displayedFonts: [],
   fonts: [],
   moreFontsToLoad: true,
+  sampleText: "The quick brown fox jumped over the lazy dog.",
   user: {}
 };
 
@@ -95,6 +97,18 @@ export default function(state = initialState, action) {
       return Object.assign({}, state, {
         fonts: modifiedFonts
       });
+    }
+
+    case UPDATE_SAMPLE_TEXT: {
+      let newSampleText = "";
+
+      if (action.text.length === 0) {
+        newSampleText = "The quick brown fox jumped over the lazy dog.";
+      } else {
+        newSampleText = action.text;
+      }
+
+      return Object.assign({}, state, { sampleText: newSampleText });
     }
 
     case USER_LOGIN_SUCCESS:

@@ -1,5 +1,3 @@
-import axios from "axios";
-
 import {
   DISLIKE_FONT,
   LIKE_FONT,
@@ -8,6 +6,7 @@ import {
   RECEIVE_FONTS,
   RESET_DISPLAYED_FONTS,
   UPDATE_FAVES,
+  UPDATE_SAMPLE_TEXT,
   USER_LOGIN_SUCCESS,
   USER_LOGOUT
 } from "./actionTypes";
@@ -53,13 +52,7 @@ export const resetDisplayedFonts = () => ({
   type: RESET_DISPLAYED_FONTS
 });
 
-export const fetchFonts = () => {
-  return async dispatch => {
-    // this informs the app state that the API call is starting:
-    dispatch(requestFonts);
-
-    const result = await axios("/api/get_all_fonts");
-    const firstEightFonts = result.data.slice(0, 8);
-    dispatch(receiveFonts(firstEightFonts));
-  };
-};
+export const updateSampleText = text => ({
+  type: UPDATE_SAMPLE_TEXT,
+  text
+});
