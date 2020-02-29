@@ -24,7 +24,7 @@ export default function FontCard(props) {
         }}
       ></i>
       <div className="font-name">{props.fontName}</div>
-      <div className="sample-text" style={{ fontFamily: `${props.fontName}` }}>
+      <div className="sample-text" style={{ fontFamily: `${props.fontName}`, fontSize: `${props.fontSize}` }}>
         {props.sampleText}
       </div>
     </div>

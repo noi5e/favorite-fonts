@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { updateSampleText } from "../redux/actions";
+import { updateFontSize, updateSampleText } from "../redux/actions";
 
-const SettingsContainer = ({ updateSampleText }) => {
+const SettingsContainer = ({ updateSampleText, updateFontSize }) => {
   return (
     <div id="search-tools" className="input-group">
       <input
@@ -23,7 +23,8 @@ const SettingsContainer = ({ updateSampleText }) => {
       />
       <select
         id="font-size-select"
-        defaultValue="24px"
+        defaultValue="40px"
+        onChange={e => updateFontSize(e.target.value)}
         className="custom-select"
       >
         <option value="24px">24px</option>
@@ -49,7 +50,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  updateSampleText
+  updateSampleText,
+  updateFontSize
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SettingsContainer);

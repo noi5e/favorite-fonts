@@ -12,6 +12,7 @@ const FontCardContainer = ({
   displayedFonts,
   dislikeFont,
   fonts,
+  fontSize,
   isFetching,
   likeFont,
   loadDisplayFonts,
@@ -89,7 +90,7 @@ const FontCardContainer = ({
         <FontCard
           key={index}
           fontName={font.family}
-          author={"Christian Robertson"}
+          fontSize={fontSize}
           handleFave={handleFave}
           sampleText={sampleText}
           liked={font.liked}
@@ -103,6 +104,7 @@ const FontCardContainer = ({
 const mapStateToProps = state => ({
   displayedFonts: state.displayedFonts,
   fonts: state.fonts,
+  fontSize: state.fontSize,
   isFetching: state.isFetching,
   moreFontsToLoad: state.moreFontsToLoad,
   sampleText: state.sampleText,
