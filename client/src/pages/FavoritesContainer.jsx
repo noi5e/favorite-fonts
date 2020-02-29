@@ -14,6 +14,7 @@ const FavoritesContainer = ({
   resetDisplayedFonts
 }) => {
   useEffect(() => {
+    window.scrollTo(0, 0);
     resetDisplayedFonts();
   }, []);
 
