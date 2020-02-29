@@ -6,6 +6,7 @@ import {
   RECEIVE_FONTS,
   RESET_DISPLAYED_FONTS,
   UPDATE_FAVES,
+  UPDATE_FONT_SIZE,
   UPDATE_SAMPLE_TEXT,
   USER_LOGIN_SUCCESS,
   USER_LOGOUT
@@ -50,6 +51,11 @@ export const receiveFonts = fonts => ({
 
 export const resetDisplayedFonts = () => ({
   type: RESET_DISPLAYED_FONTS
+});
+
+export const updateFontSize = size => ({
+  type: UPDATE_FONT_SIZE,
+  size
 });
 
 export const updateSampleText = text => ({

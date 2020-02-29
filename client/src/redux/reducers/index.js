@@ -4,6 +4,7 @@ import {
   REQUEST_FONTS,
   RECEIVE_FONTS,
   UPDATE_FAVES,
+  UPDATE_FONT_SIZE,
   UPDATE_SAMPLE_TEXT,
   USER_LOGIN_SUCCESS,
   USER_LOGOUT,
@@ -16,6 +17,7 @@ const initialState = {
   displayPosition: 0,
   displayedFonts: [],
   fonts: [],
+  fontSize: "40px",
   moreFontsToLoad: true,
   sampleText: "The quick brown fox jumped over the lazy dog.",
   user: {}
@@ -39,7 +41,10 @@ export default function(state = initialState, action) {
     }
 
     case LOAD_DISPLAY_FONTS: {
-      const loadedFonts = state.fonts.slice(state.displayPosition, state.displayPosition + 30);
+      const loadedFonts = state.fonts.slice(
+        state.displayPosition,
+        state.displayPosition + 30
+      );
 
       return Object.assign({}, state, {
         displayPosition: state.displayPosition + 30,
@@ -71,7 +76,7 @@ export default function(state = initialState, action) {
         isFetching: false,
         fonts: action.fonts,
         displayedFonts: action.fonts.slice(0, 32),
-        displayPosition: 32,
+        displayPosition: 32
       });
     }
 
@@ -98,6 +103,9 @@ export default function(state = initialState, action) {
         fonts: modifiedFonts
       });
     }
+
+    case UPDATE_FONT_SIZE:
+      return Object.assign({}, state, { fontSize: action.size });
 
     case UPDATE_SAMPLE_TEXT: {
       let newSampleText = "";
