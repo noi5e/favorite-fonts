@@ -2,7 +2,7 @@
   font-family: 'Open Sans', sans-serif;
   font-size: 24px;
   opacity: 0.6;
-  cursor: pointer;
+  cursor: default;
 }
 
 #sample-text-input, #search-input, #font-size-select, #reset-button {
