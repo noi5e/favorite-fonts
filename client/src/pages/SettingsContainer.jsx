@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { updateFontSize, updateSampleText } from "../redux/actions";
+import { updateFontSize, updateSampleText, updateSearchTerm } from "../redux/actions";
 
-const SettingsContainer = ({ updateSampleText, updateFontSize }) => {
+const SettingsContainer = ({ updateSampleText, updateSearchTerm, updateFontSize }) => {
   return (
     <div id="search-tools" className="input-group">
       <input
@@ -12,6 +12,7 @@ const SettingsContainer = ({ updateSampleText, updateFontSize }) => {
         aria-label="search fonts"
         className="form-control"
         placeholder="Search fonts..."
+        onChange={e => updateSearchTerm(e.target.value)}
       />
       <input
         id="sample-text-input"
@@ -51,7 +52,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   updateSampleText,
-  updateFontSize
+  updateFontSize,
+  updateSearchTerm
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SettingsContainer);
