@@ -15,10 +15,10 @@ const AuthHeader = ({ userLogout }) => {
   return (
     <nav id="nav">
       <Link to="/" className="nav-link auth-link">
-        Home
+        All Fonts
       </Link>
       <Link to="/favorites" className="nav-link auth-link">
-        Your Favorite Fonts
+        Favorites
       </Link>
       <a onClick={logoutUser} className="nav-link auth-link">
         Logout
