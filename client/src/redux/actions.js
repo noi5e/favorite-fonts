@@ -8,6 +8,7 @@ import {
   UPDATE_FAVES,
   UPDATE_FONT_SIZE,
   UPDATE_SAMPLE_TEXT,
+  UPDATE_SEARCH_TERM,
   USER_LOGIN_SUCCESS,
   USER_LOGOUT
 } from "./actionTypes";
@@ -26,20 +27,6 @@ export const loadDisplayFonts = () => ({
   type: LOAD_DISPLAY_FONTS
 });
 
-export const updateFaves = faves => ({
-  type: UPDATE_FAVES,
-  faves
-});
-
-export const userLoginSuccess = user => ({
-  type: USER_LOGIN_SUCCESS,
-  user
-});
-
-export const userLogout = () => ({
-  type: USER_LOGOUT
-});
-
 export const requestFonts = () => ({
   type: REQUEST_FONTS
 });
@@ -53,6 +40,11 @@ export const resetDisplayedFonts = () => ({
   type: RESET_DISPLAYED_FONTS
 });
 
+export const updateFaves = faves => ({
+  type: UPDATE_FAVES,
+  faves
+});
+
 export const updateFontSize = size => ({
   type: UPDATE_FONT_SIZE,
   size
@@ -61,4 +53,18 @@ export const updateFontSize = size => ({
 export const updateSampleText = text => ({
   type: UPDATE_SAMPLE_TEXT,
   text
+});
+
+export const updateSearchTerm = searchTerm => ({
+  type: UPDATE_SEARCH_TERM,
+  searchTerm
+});
+
+export const userLoginSuccess = user => ({
+  type: USER_LOGIN_SUCCESS,
+  user
+});
+
+export const userLogout = () => ({
+  type: USER_LOGOUT
 });

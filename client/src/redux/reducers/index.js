@@ -6,6 +6,7 @@ import {
   UPDATE_FAVES,
   UPDATE_FONT_SIZE,
   UPDATE_SAMPLE_TEXT,
+  UPDATE_SEARCH_TERM,
   USER_LOGIN_SUCCESS,
   USER_LOGOUT,
   LOAD_DISPLAY_FONTS,
@@ -20,6 +21,7 @@ const initialState = {
   fontSize: "40px",
   moreFontsToLoad: true,
   sampleText: "The quick brown fox jumped over the lazy dog.",
+  searchTerm: "",
   user: {}
 };
 
@@ -118,6 +120,9 @@ export default function(state = initialState, action) {
 
       return Object.assign({}, state, { sampleText: newSampleText });
     }
+
+    case UPDATE_SEARCH_TERM:
+      return Object.assign({}, state, { searchTerm: action.searchTerm });
 
     case USER_LOGIN_SUCCESS:
       return Object.assign({}, state, { user: action.user });
