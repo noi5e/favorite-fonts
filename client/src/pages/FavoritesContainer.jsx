@@ -11,7 +11,8 @@ const FavoritesContainer = ({
   likeFont,
   dislikeFont,
   fonts,
-  resetDisplayedFonts
+  resetDisplayedFonts,
+  sampleText
 }) => {
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -42,7 +43,7 @@ const FavoritesContainer = ({
         key={index}
         fontName={font.family}
         handleFave={handleFave}
-        sampleText={"The quick brown fox jumped over the lazy dog."}
+        sampleText={sampleText}
         liked={font.liked}
       />
     ));
@@ -52,7 +53,8 @@ const FavoritesContainer = ({
 
 const mapStateToProps = state => ({
   displayedFonts: state.displayedFonts,
-  fonts: state.fonts
+  fonts: state.fonts,
+  sampleText: state.sampleText
 });
 
 const mapDispatchToProps = {
