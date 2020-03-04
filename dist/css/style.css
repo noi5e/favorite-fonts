@@ -17,6 +17,10 @@
   border-radius: 0;
 }
 
+a.nav-link.login-button:hover {
+  background-color: #f00
+}
+
 .font-author {
   opacity: 0.6;
 }
@@ -34,6 +38,11 @@
 
 .font-name {
   font-weight: bold;
+}
+
+.login-button {
+  color: #fff !important;
+  background-color: #d00;
 }
 
 .like-button {
@@ -111,7 +120,7 @@ body {
 @media (min-width: 600px) {
 
   .login-button {
-    border: solid 1px #ced4da;
+    /* border: solid 1px #d00; */
     padding: 5px 20px;
     border-radius: 40px;
   }
