@@ -43,16 +43,32 @@ export default function(state = initialState, action) {
     }
 
     case LOAD_DISPLAY_FONTS: {
-      const loadedFonts = state.fonts.slice(
-        state.displayPosition,
-        state.displayPosition + 30
-      );
+      if (state.searchTerm.length > 0) {
+        // if there's a search term, we need to load from the fonts matching search term, NOT all fonts.
+        let newDisplayedFonts = state.fonts.filter(
+          font => font.family.indexOf(state.searchTerm) > -1
+        );
+        
+        let moreFontsToLoad = state.displayPosition + 30 < newDisplayedFonts.length;
+        newDisplayedFonts = newDisplayedFonts.slice(state.displayPosition, state.displayPosition + 30);
 
-      return Object.assign({}, state, {
-        displayPosition: state.displayPosition + 30,
-        displayedFonts: state.displayedFonts.concat(loadedFonts),
-        moreFontsToLoad: state.displayPosition + 30 < state.fonts.length
-      });
+        return Object.assign({}, state, {
+          displayPosition: state.displayPosition + 30,
+          displayedFonts: state.displayedFonts.concat(newDisplayedFonts),
+          moreFontsToLoad
+        });
+      } else {
+        const loadedFonts = state.fonts.slice(
+          state.displayPosition,
+          state.displayPosition + 30
+        );
+  
+        return Object.assign({}, state, {
+          displayPosition: state.displayPosition + 30,
+          displayedFonts: state.displayedFonts.concat(loadedFonts),
+          moreFontsToLoad: state.displayPosition + 30 < state.fonts.length
+        });
+      }
     }
 
     case LIKE_FONT: {
@@ -85,7 +101,7 @@ export default function(state = initialState, action) {
     case RESET_DISPLAYED_FONTS:
       return Object.assign({}, state, {
         displayedFonts: state.fonts.slice(0, 32),
-        displayPosition: 0,
+        displayPosition: 32,
         moreFontsToLoad: true
       });
 
@@ -121,8 +137,34 @@ export default function(state = initialState, action) {
       return Object.assign({}, state, { sampleText: newSampleText });
     }
 
-    case UPDATE_SEARCH_TERM:
-      return Object.assign({}, state, { searchTerm: action.searchTerm });
+    case UPDATE_SEARCH_TERM: {
+      if (action.searchTerm.length > 0) {
+
+        // filter all fonts for those font names matching search term
+        let newDisplayedFonts = state.fonts.filter(
+          font => font.family.indexOf(action.searchTerm) > -1
+        );
+
+        // 32 fonts displayed at one time. if there are more than 32, there are moreFontsToLoad.
+        let moreFontsToLoad = newDisplayedFonts.length > 32;
+        newDisplayedFonts = newDisplayedFonts.slice(0, 32);
+
+        return Object.assign({}, state, {
+          searchTerm: action.searchTerm,
+          displayedFonts: newDisplayedFonts,
+          displayPosition: 32,
+          moreFontsToLoad
+        });
+      } else {
+        // if the user enters a search term, then deletes it, reset the displayed fonts to default settings.
+        return Object.assign({}, state, {
+          displayedFonts: state.fonts.slice(0, 32),
+          displayPosition: 32,
+          moreFontsToLoad: true,
+          searchTerm: action.searchTerm
+        });
+      }
+    }
 
     case USER_LOGIN_SUCCESS:
       return Object.assign({}, state, { user: action.user });
