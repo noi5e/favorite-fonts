@@ -18,13 +18,13 @@ const FavoritesContainer = ({
   displayedFonts,
   sampleText,
   loadFavoriteFonts,
-  moreFontsToLoad
+  moreFontsToFetch
 }) => {
   const checkForBottomScroll = debounce(() => {
     if (
       window.innerHeight + document.documentElement.scrollTop >=
         document.body.offsetHeight &&
-      moreFontsToLoad
+        moreFontsToFetch
     ) {
       loadFavoriteFonts();
     }
@@ -88,7 +88,7 @@ const mapStateToProps = state => ({
   displayedFonts: state.displayedFonts,
   fonts: state.fonts,
   sampleText: state.sampleText,
-  moreFontsToLoad: state.moreFontsToLoad
+  moreFontsToFetch: state.moreFontsToFetch
 });
 
 const mapDispatchToProps = {

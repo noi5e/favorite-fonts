@@ -4,7 +4,15 @@ import { connect } from "react-redux";
 import axios from "axios";
 import debounce from "lodash.debounce";
 
-import { dislikeFont, fetchDisplayFonts, likeFont, loadAllFonts, requestFonts, receiveFonts, updateFaves } from "../redux/actions";
+import {
+  dislikeFont,
+  fetchDisplayFonts,
+  likeFont,
+  loadAllFonts,
+  requestFonts,
+  receiveFonts,
+  updateFaves
+} from "../redux/actions";
 import { getUser, isUserAuthenticated } from "../utilities/authentication";
 import FontCard from "./FontCard.jsx";
 
@@ -17,7 +25,7 @@ const FontCardContainer = ({
   likeFont,
   loadAllFonts,
   fetchDisplayFonts,
-  moreFontsToLoad,
+  moreFontsToFetch,
   requestFonts,
   receiveFonts,
   sampleText,
@@ -25,10 +33,14 @@ const FontCardContainer = ({
   user
 }) => {
   const checkForBottomScroll = debounce(() => {
-    if ((window.innerHeight + document.documentElement.scrollTop) >= document.body.offsetHeight && moreFontsToLoad) {
+    if (
+      window.innerHeight + document.documentElement.scrollTop >=
+        document.body.offsetHeight &&
+      moreFontsToFetch
+    ) {
       fetchDisplayFonts();
     }
-  }, 100)
+  }, 100);
 
   const fetchFaves = async () => {
     const favesResult = await axios({
@@ -60,9 +72,9 @@ const FontCardContainer = ({
   }, []);
 
   useEffect(() => {
-    window.addEventListener("scroll", checkForBottomScroll)
+    window.addEventListener("scroll", checkForBottomScroll);
 
-    return () => window.removeEventListener('scroll', checkForBottomScroll);
+    return () => window.removeEventListener("scroll", checkForBottomScroll);
   });
 
   useEffect(() => {
@@ -109,7 +121,7 @@ const mapStateToProps = state => ({
   fonts: state.fonts,
   fontSize: state.fontSize,
   isFetching: state.isFetching,
-  moreFontsToLoad: state.moreFontsToLoad,
+  moreFontsToFetch: state.moreFontsToFetch,
   sampleText: state.sampleText,
   user: state.user
 });

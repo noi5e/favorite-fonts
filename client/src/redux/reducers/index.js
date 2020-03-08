@@ -20,7 +20,7 @@ const initialState = {
   displayedFonts: [],
   fonts: [],
   fontSize: "40px",
-  moreFontsToLoad: true,
+  moreFontsToFetch: true,
   sampleText: "The quick brown fox jumped over the lazy dog.",
   searchTerm: "",
   user: {}
@@ -50,7 +50,7 @@ export default function(state = initialState, action) {
           font => font.family.indexOf(state.searchTerm) > -1
         );
 
-        let moreFontsToLoad =
+        let moreFontsToFetch =
           state.displayPosition + 30 < newDisplayedFonts.length;
         newDisplayedFonts = newDisplayedFonts.slice(
           state.displayPosition,
@@ -60,7 +60,7 @@ export default function(state = initialState, action) {
         return Object.assign({}, state, {
           displayPosition: state.displayPosition + 30,
           displayedFonts: state.displayedFonts.concat(newDisplayedFonts),
-          moreFontsToLoad
+          moreFontsToFetch
         });
       } else {
         const loadedFonts = state.fonts.slice(
@@ -71,7 +71,7 @@ export default function(state = initialState, action) {
         return Object.assign({}, state, {
           displayPosition: state.displayPosition + 30,
           displayedFonts: state.displayedFonts.concat(loadedFonts),
-          moreFontsToLoad: state.displayPosition + 30 < state.fonts.length
+          moreFontsToFetch: state.displayPosition + 30 < state.fonts.length
         });
       }
     }
@@ -80,19 +80,19 @@ export default function(state = initialState, action) {
       return Object.assign({}, state, {
         displayedFonts: state.fonts.slice(0, 32),
         displayPosition: 32,
-        moreFontsToLoad: true
+        moreFontsToFetch: true
       });
     }
 
     case LOAD_FAVORITE_FONTS: {
       const favoriteFonts = state.fonts.filter(font => font.liked);
-      let moreFontsToLoad = favoriteFonts.length > 32;
+      let moreFontsToFetch = favoriteFonts.length > 32;
       const displayedFonts = favoriteFonts.slice(0, 32);
 
       return Object.assign({}, state, {
         displayedFonts,
         displayPosition: 32,
-        moreFontsToLoad
+        moreFontsToFetch
       });
     }
 
@@ -162,22 +162,22 @@ export default function(state = initialState, action) {
           font => font.family.indexOf(action.searchTerm) > -1
         );
 
-        // 32 fonts displayed at one time. if there are more than 32, there are moreFontsToLoad.
-        let moreFontsToLoad = newDisplayedFonts.length > 32;
+        // 32 fonts displayed at one time. if there are more than 32, there are moreFontsToFetch.
+        let moreFontsToFetch = newDisplayedFonts.length > 32;
         newDisplayedFonts = newDisplayedFonts.slice(0, 32);
 
         return Object.assign({}, state, {
           searchTerm: action.searchTerm,
           displayedFonts: newDisplayedFonts,
           displayPosition: 32,
-          moreFontsToLoad
+          moreFontsToFetch
         });
       } else {
         // if the user enters a search term, then deletes it, reset the displayed fonts to default settings.
         return Object.assign({}, state, {
           displayedFonts: state.fonts.slice(0, 32),
           displayPosition: 32,
-          moreFontsToLoad: true,
+          moreFontsToFetch: true,
           searchTerm: action.searchTerm
         });
       }
