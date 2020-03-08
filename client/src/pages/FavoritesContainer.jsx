@@ -2,22 +2,45 @@
 import React, { useEffect } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
+import debounce from "lodash.debounce";
 
 import FontCard from "./FontCard.jsx";
-import { dislikeFont, likeFont, resetDisplayedFonts } from "../redux/actions";
+import {
+  dislikeFont,
+  likeFont,
+  loadFavoriteFonts
+} from "../redux/actions";
 import { getUser } from "../utilities/authentication";
 
 const FavoritesContainer = ({
   likeFont,
   dislikeFont,
-  fonts,
-  resetDisplayedFonts,
-  sampleText
+  displayedFonts,
+  sampleText,
+  loadFavoriteFonts,
+  moreFontsToLoad
 }) => {
+  const checkForBottomScroll = debounce(() => {
+    if (
+      window.innerHeight + document.documentElement.scrollTop >=
+        document.body.offsetHeight &&
+      moreFontsToLoad
+    ) {
+      loadFavoriteFonts();
+    }
+  }, 100);
+
   useEffect(() => {
     window.scrollTo(0, 0);
-    resetDisplayedFonts();
+    // resetDisplayedFonts();
+    loadFavoriteFonts();
   }, []);
+
+  useEffect(() => {
+    window.addEventListener("scroll", checkForBottomScroll);
+
+    return () => window.removeEventListener("scroll", checkForBottomScroll);
+  });
 
   const handleFave = fontName => {
     (async () => {
@@ -36,17 +59,27 @@ const FavoritesContainer = ({
     })();
   };
 
-  const favoriteFonts = fonts
-    .filter(font => font.liked)
-    .map((font, index) => (
-      <FontCard
-        key={index}
-        fontName={font.family}
-        handleFave={handleFave}
-        sampleText={sampleText}
-        liked={font.liked}
-      />
-    ));
+  // const favoriteFonts = fonts
+  //   .filter(font => font.liked)
+  //   .map((font, index) => (
+  //     <FontCard
+  //       key={index}
+  //       fontName={font.family}
+  //       handleFave={handleFave}
+  //       sampleText={sampleText}
+  //       liked={font.liked}
+  //     />
+  //   ));
+
+  const favoriteFonts = displayedFonts.map((font, index) => (
+    <FontCard
+      key={index}
+      fontName={font.family}
+      handleFave={handleFave}
+      sampleText={sampleText}
+      liked={font.liked}
+    />
+  ));
 
   return <div id="font-card-container">{favoriteFonts}</div>;
 };
@@ -54,13 +87,14 @@ const FavoritesContainer = ({
 const mapStateToProps = state => ({
   displayedFonts: state.displayedFonts,
   fonts: state.fonts,
-  sampleText: state.sampleText
+  sampleText: state.sampleText,
+  moreFontsToLoad: state.moreFontsToLoad
 });
 
 const mapDispatchToProps = {
   dislikeFont,
   likeFont,
-  resetDisplayedFonts
+  loadFavoriteFonts
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FavoritesContainer);
