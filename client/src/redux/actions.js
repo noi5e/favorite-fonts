@@ -1,10 +1,11 @@
 import {
   DISLIKE_FONT,
+  FETCH_DISPLAY_FONTS,
   LIKE_FONT,
-  LOAD_DISPLAY_FONTS,
+  LOAD_ALL_FONTS,
+  LOAD_FAVORITE_FONTS,
   REQUEST_FONTS,
   RECEIVE_FONTS,
-  RESET_DISPLAYED_FONTS,
   UPDATE_FAVES,
   UPDATE_FONT_SIZE,
   UPDATE_SAMPLE_TEXT,
@@ -18,13 +19,21 @@ export const dislikeFont = font => ({
   font
 });
 
+export const fetchDisplayFonts = () => ({
+  type: FETCH_DISPLAY_FONTS
+});
+
 export const likeFont = font => ({
   type: LIKE_FONT,
   font
 });
 
-export const loadDisplayFonts = () => ({
-  type: LOAD_DISPLAY_FONTS
+export const loadAllFonts = () => ({
+  type: LOAD_ALL_FONTS
+});
+
+export const loadFavoriteFonts = () => ({
+  type: LOAD_FAVORITE_FONTS
 });
 
 export const requestFonts = () => ({
@@ -34,10 +43,6 @@ export const requestFonts = () => ({
 export const receiveFonts = fonts => ({
   type: RECEIVE_FONTS,
   fonts
-});
-
-export const resetDisplayedFonts = () => ({
-  type: RESET_DISPLAYED_FONTS
 });
 
 export const updateFaves = faves => ({

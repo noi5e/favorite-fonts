@@ -1,16 +1,17 @@
 import {
   DISLIKE_FONT,
+  FETCH_DISPLAY_FONTS,
   LIKE_FONT,
-  REQUEST_FONTS,
+  LOAD_ALL_FONTS,
+  LOAD_FAVORITE_FONTS,
   RECEIVE_FONTS,
+  REQUEST_FONTS,
   UPDATE_FAVES,
   UPDATE_FONT_SIZE,
   UPDATE_SAMPLE_TEXT,
   UPDATE_SEARCH_TERM,
   USER_LOGIN_SUCCESS,
-  USER_LOGOUT,
-  LOAD_DISPLAY_FONTS,
-  RESET_DISPLAYED_FONTS
+  USER_LOGOUT
 } from "../actionTypes";
 
 const initialState = {
@@ -42,15 +43,19 @@ export default function(state = initialState, action) {
       });
     }
 
-    case LOAD_DISPLAY_FONTS: {
+    case FETCH_DISPLAY_FONTS: {
       if (state.searchTerm.length > 0) {
         // if there's a search term, we need to load from the fonts matching search term, NOT all fonts.
         let newDisplayedFonts = state.fonts.filter(
           font => font.family.indexOf(state.searchTerm) > -1
         );
-        
-        let moreFontsToLoad = state.displayPosition + 30 < newDisplayedFonts.length;
-        newDisplayedFonts = newDisplayedFonts.slice(state.displayPosition, state.displayPosition + 30);
+
+        let moreFontsToLoad =
+          state.displayPosition + 30 < newDisplayedFonts.length;
+        newDisplayedFonts = newDisplayedFonts.slice(
+          state.displayPosition,
+          state.displayPosition + 30
+        );
 
         return Object.assign({}, state, {
           displayPosition: state.displayPosition + 30,
@@ -62,13 +67,33 @@ export default function(state = initialState, action) {
           state.displayPosition,
           state.displayPosition + 30
         );
-  
+
         return Object.assign({}, state, {
           displayPosition: state.displayPosition + 30,
           displayedFonts: state.displayedFonts.concat(loadedFonts),
           moreFontsToLoad: state.displayPosition + 30 < state.fonts.length
         });
       }
+    }
+
+    case LOAD_ALL_FONTS: {
+      return Object.assign({}, state, {
+        displayedFonts: state.fonts.slice(0, 32),
+        displayPosition: 32,
+        moreFontsToLoad: true
+      });
+    }
+
+    case LOAD_FAVORITE_FONTS: {
+      const favoriteFonts = state.fonts.filter(font => font.liked);
+      let moreFontsToLoad = favoriteFonts.length > 32;
+      const displayedFonts = favoriteFonts.slice(0, 32);
+
+      return Object.assign({}, state, {
+        displayedFonts,
+        displayPosition: 32,
+        moreFontsToLoad
+      });
     }
 
     case LIKE_FONT: {
@@ -97,13 +122,6 @@ export default function(state = initialState, action) {
         displayPosition: 32
       });
     }
-
-    case RESET_DISPLAYED_FONTS:
-      return Object.assign({}, state, {
-        displayedFonts: state.fonts.slice(0, 32),
-        displayPosition: 32,
-        moreFontsToLoad: true
-      });
 
     case UPDATE_FAVES: {
       const modifiedFonts = [...state.fonts];
@@ -139,7 +157,6 @@ export default function(state = initialState, action) {
 
     case UPDATE_SEARCH_TERM: {
       if (action.searchTerm.length > 0) {
-
         // filter all fonts for those font names matching search term
         let newDisplayedFonts = state.fonts.filter(
           font => font.family.indexOf(action.searchTerm) > -1
