@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import axios from "axios";
 import debounce from "lodash.debounce";
 
-import { dislikeFont, likeFont, loadDisplayFonts, requestFonts, receiveFonts, updateFaves } from "../redux/actions";
+import { dislikeFont, fetchDisplayFonts, likeFont, loadAllFonts, requestFonts, receiveFonts, updateFaves } from "../redux/actions";
 import { getUser, isUserAuthenticated } from "../utilities/authentication";
 import FontCard from "./FontCard.jsx";
 
@@ -15,7 +15,8 @@ const FontCardContainer = ({
   fontSize,
   isFetching,
   likeFont,
-  loadDisplayFonts,
+  loadAllFonts,
+  fetchDisplayFonts,
   moreFontsToLoad,
   requestFonts,
   receiveFonts,
@@ -25,7 +26,7 @@ const FontCardContainer = ({
 }) => {
   const checkForBottomScroll = debounce(() => {
     if ((window.innerHeight + document.documentElement.scrollTop) >= document.body.offsetHeight && moreFontsToLoad) {
-      loadDisplayFonts();
+      fetchDisplayFonts();
     }
   }, 100)
 
@@ -53,6 +54,8 @@ const FontCardContainer = ({
           fetchFaves();
         }
       })();
+    } else {
+      loadAllFonts();
     }
   }, []);
 
@@ -114,7 +117,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   dislikeFont,
   likeFont,
-  loadDisplayFonts,
+  loadAllFonts,
+  fetchDisplayFonts,
   requestFonts,
   receiveFonts,
   updateFaves
