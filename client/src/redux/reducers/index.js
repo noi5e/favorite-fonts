@@ -23,7 +23,36 @@ const initialState = {
   moreFontsToFetch: true,
   sampleText: "The quick brown fox jumped over the lazy dog.",
   searchTerm: "",
-  user: {}
+  user: {},
+  viewingFavorites: false
+};
+
+// helper function for generating displayed fonts (app displays 32 fonts to begin with, then loads more)
+const getDisplayState = (searchTerm, fonts) => {
+  if (searchTerm.length > 0) {
+    // filter all fonts for those font names matching search term
+    let matchingFonts = fonts.filter(
+      font => font.family.indexOf(searchTerm) > -1
+    );
+
+    // app displays 32 fonts at one time. if there are more than 32 matching fonts, then flags this var as true
+    let moreFontsToFetch = matchingFonts.length > 32;
+
+    return {
+      displayedFonts: matchingFonts.slice(0, 32),
+      displayPosition: 32,
+      moreFontsToFetch,
+      searchTerm
+    };
+  } else {
+    // handles case for when user deletes the searchTerm (resets displayedFonts to default, ie. all fonts)
+    return {
+      displayedFonts: fonts.slice(0, 32),
+      displayPosition: 32,
+      moreFontsToFetch: fonts.length > 32,
+      searchTerm
+    };
+  }
 };
 
 export default function(state = initialState, action) {
@@ -43,9 +72,10 @@ export default function(state = initialState, action) {
       });
     }
 
+    // if the user scrolls to the bottom of the page, this action FETCHes more fonts
     case FETCH_DISPLAY_FONTS: {
       if (state.searchTerm.length > 0) {
-        // if there's a search term, we need to load from the fonts matching search term, NOT all fonts.
+        // if there's a search term entered, we need to load from the fonts matching search term, NOT all fonts.
         let newDisplayedFonts = state.fonts.filter(
           font => font.family.indexOf(state.searchTerm) > -1
         );
@@ -63,6 +93,7 @@ export default function(state = initialState, action) {
           moreFontsToFetch
         });
       } else {
+        // if there's no search term entered, load new fonts straight from all fonts
         const loadedFonts = state.fonts.slice(
           state.displayPosition,
           state.displayPosition + 30
@@ -76,24 +107,64 @@ export default function(state = initialState, action) {
       }
     }
 
+    // if the user navigates to All Fonts, this action resets the displayed fonts
     case LOAD_ALL_FONTS: {
-      return Object.assign({}, state, {
-        displayedFonts: state.fonts.slice(0, 32),
-        displayPosition: 32,
-        moreFontsToFetch: true
-      });
+      if (state.searchTerm.length > 0) {
+        const {
+          displayedFonts,
+          displayPosition,
+          moreFontsToFetch
+        } = getDisplayState(state.searchTerm, state.fonts);
+
+        return Object.assign({}, state, {
+          displayedFonts,
+          displayPosition,
+          moreFontsToFetch,
+          viewingFavorites: false
+        });
+      } else {
+        return Object.assign({}, state, {
+          displayedFonts: state.fonts.slice(0, 32),
+          displayPosition: 32,
+          moreFontsToFetch: true,
+          viewingFavorites: false
+        });
+      }
     }
 
+    // if the user navigates to their Favorite Fonts, this action resets the displayed fonts
     case LOAD_FAVORITE_FONTS: {
-      const favoriteFonts = state.fonts.filter(font => font.liked);
-      let moreFontsToFetch = favoriteFonts.length > 32;
-      const displayedFonts = favoriteFonts.slice(0, 32);
+      if (state.searchTerm.length > 0) {
+        const favoriteFonts = state.fonts.filter(font => font.liked);
 
-      return Object.assign({}, state, {
-        displayedFonts,
-        displayPosition: 32,
-        moreFontsToFetch
-      });
+        const {
+          displayedFonts,
+          displayPosition,
+          moreFontsToFetch
+        } = getDisplayState(state.searchTerm, favoriteFonts);
+
+        return Object.assign({}, state, {
+          displayedFonts,
+          displayPosition,
+          moreFontsToFetch,
+          viewingFavorites: true
+        });
+      } else {
+        const favoriteFonts = state.fonts.filter(font => font.liked);
+
+        const {
+          displayedFonts,
+          displayPosition,
+          moreFontsToFetch
+        } = getDisplayState("", favoriteFonts);
+
+        return Object.assign({}, state, {
+          displayedFonts,
+          displayPosition,
+          moreFontsToFetch,
+          viewingFavorites: true
+        });
+      }
     }
 
     case LIKE_FONT: {
@@ -123,6 +194,8 @@ export default function(state = initialState, action) {
       });
     }
 
+    // this action updates the list of all fonts, so that it accurately represents user's faves
+    //   ie. the heart button on each font card is accurately filled in (or not)
     case UPDATE_FAVES: {
       const modifiedFonts = [...state.fonts];
 
@@ -156,31 +229,15 @@ export default function(state = initialState, action) {
     }
 
     case UPDATE_SEARCH_TERM: {
-      if (action.searchTerm.length > 0) {
-        // filter all fonts for those font names matching search term
-        let newDisplayedFonts = state.fonts.filter(
-          font => font.family.indexOf(action.searchTerm) > -1
-        );
+      let fonts = state.viewingFavorites
+        ? state.fonts.filter(font => font.liked)
+        : state.fonts;
 
-        // 32 fonts displayed at one time. if there are more than 32, there are moreFontsToFetch.
-        let moreFontsToFetch = newDisplayedFonts.length > 32;
-        newDisplayedFonts = newDisplayedFonts.slice(0, 32);
-
-        return Object.assign({}, state, {
-          searchTerm: action.searchTerm,
-          displayedFonts: newDisplayedFonts,
-          displayPosition: 32,
-          moreFontsToFetch
-        });
-      } else {
-        // if the user enters a search term, then deletes it, reset the displayed fonts to default settings.
-        return Object.assign({}, state, {
-          displayedFonts: state.fonts.slice(0, 32),
-          displayPosition: 32,
-          moreFontsToFetch: true,
-          searchTerm: action.searchTerm
-        });
-      }
+      return Object.assign(
+        {},
+        state,
+        getDisplayState(action.searchTerm, fonts)
+      );
     }
 
     case USER_LOGIN_SUCCESS:
