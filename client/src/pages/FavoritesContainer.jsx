@@ -7,6 +7,7 @@ import debounce from "lodash.debounce";
 import FontCard from "./FontCard.jsx";
 import {
   dislikeFont,
+  fetchDisplayFonts,
   likeFont,
   loadFavoriteFonts
 } from "../redux/actions";
@@ -16,6 +17,7 @@ const FavoritesContainer = ({
   likeFont,
   dislikeFont,
   displayedFonts,
+  fetchDisplayFonts,
   sampleText,
   loadFavoriteFonts,
   moreFontsToFetch
@@ -24,9 +26,9 @@ const FavoritesContainer = ({
     if (
       window.innerHeight + document.documentElement.scrollTop >=
         document.body.offsetHeight &&
-        moreFontsToFetch
+      moreFontsToFetch
     ) {
-      loadFavoriteFonts();
+      fetchDisplayFonts();
     }
   }, 100);
 
@@ -59,18 +61,6 @@ const FavoritesContainer = ({
     })();
   };
 
-  // const favoriteFonts = fonts
-  //   .filter(font => font.liked)
-  //   .map((font, index) => (
-  //     <FontCard
-  //       key={index}
-  //       fontName={font.family}
-  //       handleFave={handleFave}
-  //       sampleText={sampleText}
-  //       liked={font.liked}
-  //     />
-  //   ));
-
   const favoriteFonts = displayedFonts.map((font, index) => (
     <FontCard
       key={index}
@@ -93,6 +83,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   dislikeFont,
+  fetchDisplayFonts,
   likeFont,
   loadFavoriteFonts
 };
