@@ -6,6 +6,7 @@ import {
   LOAD_FAVORITE_FONTS,
   RECEIVE_FONTS,
   REQUEST_FONTS,
+  RESET_FONT_OPTIONS,
   UPDATE_FAVES,
   UPDATE_FONT_SIZE,
   UPDATE_SAMPLE_TEXT,
@@ -32,7 +33,7 @@ const getDisplayState = (searchTerm, fonts) => {
   if (searchTerm.length > 0) {
     // filter all fonts for those font names matching search term
     let matchingFonts = fonts.filter(
-      font => font.family.indexOf(searchTerm) > -1
+      font => font.family.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
     );
 
     // app displays 32 fonts at one time. if there are more than 32 matching fonts, then flags this var as true
@@ -77,7 +78,9 @@ export default function(state = initialState, action) {
       if (state.searchTerm.length > 0) {
         // if there's a search term entered, we need to load from the fonts matching search term, NOT all fonts.
         let newDisplayedFonts = state.fonts.filter(
-          font => font.family.indexOf(state.searchTerm) > -1
+          font =>
+            font.family.toLowerCase().indexOf(state.searchTerm.toLowerCase()) >
+            -1
         );
 
         let moreFontsToFetch =
@@ -192,6 +195,23 @@ export default function(state = initialState, action) {
         displayedFonts: action.fonts.slice(0, 32),
         displayPosition: 32
       });
+    }
+
+    case RESET_FONT_OPTIONS: {
+      const fonts = state.viewingFavorites
+        ? state.fonts.filter(font => font.liked)
+        : state.fonts;
+
+      return Object.assign(
+        {},
+        state,
+        {
+          searchTerm: "",
+          sampleText: "The quick brown fox jumped over the lazy dog.",
+          fontSize: "40px"
+        },
+        getDisplayState("", fonts)
+      );
     }
 
     // this action updates the list of all fonts, so that it accurately represents user's faves

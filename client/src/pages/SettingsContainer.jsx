@@ -2,12 +2,17 @@ import React from "react";
 import { connect } from "react-redux";
 
 import {
+  resetFontOptions,
   updateFontSize,
   updateSampleText,
   updateSearchTerm
 } from "../redux/actions";
 
 const SettingsContainer = ({
+  fontSize,
+  resetFontOptions,
+  sampleText,
+  searchTerm,
   updateSampleText,
   updateSearchTerm,
   updateFontSize
@@ -19,6 +24,7 @@ const SettingsContainer = ({
         type="search"
         aria-label="search fonts"
         className="form-control"
+        value={searchTerm}
         placeholder="Search fonts..."
         onChange={e => updateSearchTerm(e.target.value)}
       />
@@ -28,11 +34,12 @@ const SettingsContainer = ({
         aria-label="enter sample text"
         className="form-control"
         placeholder="Type something!"
-        onChange={e => updateSampleText(e)}
+        value={sampleText === "The quick brown fox jumped over the lazy dog." ? "" : sampleText}
+        onChange={e => updateSampleText(e.target.value)}
       />
       <select
         id="font-size-select"
-        defaultValue="40px"
+        defaultValue={fontSize}
         onChange={e => updateFontSize(e.target.value)}
         className="custom-select"
       >
@@ -43,6 +50,7 @@ const SettingsContainer = ({
       </select>
       <div className="input-group-append">
         <button
+          onClick={resetFontOptions}
           id="reset-button"
           className="btn btn-outline-secondary"
           type="button"
@@ -55,10 +63,13 @@ const SettingsContainer = ({
 };
 
 const mapStateToProps = state => ({
-  sampleText: state.sampleText
+  fontSize: state.fontSize,
+  sampleText: state.sampleText,
+  searchTerm: state.searchTerm
 });
 
 const mapDispatchToProps = {
+  resetFontOptions,
   updateSampleText,
   updateFontSize,
   updateSearchTerm
