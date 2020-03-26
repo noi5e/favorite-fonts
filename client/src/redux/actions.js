@@ -6,6 +6,7 @@ import {
   LOAD_FAVORITE_FONTS,
   REQUEST_FONTS,
   RECEIVE_FONTS,
+  RESET_FONT_OPTIONS,
   UPDATE_FAVES,
   UPDATE_FONT_SIZE,
   UPDATE_SAMPLE_TEXT,
@@ -43,6 +44,10 @@ export const requestFonts = () => ({
 export const receiveFonts = fonts => ({
   type: RECEIVE_FONTS,
   fonts
+});
+
+export const resetFontOptions = () => ({
+  type: RESET_FONT_OPTIONS
 });
 
 export const updateFaves = faves => ({
