@@ -232,11 +232,18 @@ export default function(state = initialState, action) {
     case UPDATE_FAVES: {
       const modifiedFonts = [...state.fonts];
 
-      for (let i = 0; i < action.faves.length; i++) {
-        for (let j = 0; j < modifiedFonts.length; j++) {
-          if (modifiedFonts[j].family === action.faves[i].family) {
-            modifiedFonts[j].liked = true;
-            break;
+      for (let i = 0; i < modifiedFonts.length; i++) {
+        let notAFave = true;
+
+        for (let j = 0; j < action.faves.length; j++) {
+          if (action.faves[j].family === modifiedFonts[i].family) {
+            notAFave = false;
+          }
+
+          if (j === action.faves.length - 1 && notAFave) {
+            modifiedFonts[i].liked = false;
+          } else {
+            modifiedFonts[i].liked = true;
           }
         }
       }
