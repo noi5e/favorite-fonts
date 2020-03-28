@@ -1,12 +1,14 @@
 import {
   DISLIKE_FONT,
   FETCH_DISPLAY_FONTS,
+  HIDE_PAGE_UP_BUTTON,
   LIKE_FONT,
   LOAD_ALL_FONTS,
   LOAD_FAVORITE_FONTS,
   RECEIVE_FONTS,
   REQUEST_FONTS,
   RESET_FONT_OPTIONS,
+  SHOW_PAGE_UP_BUTTON,
   UPDATE_FAVES,
   UPDATE_FONT_SIZE,
   UPDATE_SAMPLE_TEXT,
@@ -22,6 +24,7 @@ const initialState = {
   fonts: [],
   fontSize: "40px",
   moreFontsToFetch: true,
+  pageUpButtonIsVisible: false,
   sampleText: "The quick brown fox jumped over the lazy dog.",
   searchTerm: "",
   user: {},
@@ -109,6 +112,11 @@ export default function(state = initialState, action) {
         });
       }
     }
+
+    case HIDE_PAGE_UP_BUTTON:
+      return Object.assign({}, state, {
+        pageUpButtonIsVisible: false
+      });
 
     // if the user navigates to All Fonts, this action resets the displayed fonts
     case LOAD_ALL_FONTS: {
@@ -213,6 +221,11 @@ export default function(state = initialState, action) {
         getDisplayState("", fonts)
       );
     }
+
+    case SHOW_PAGE_UP_BUTTON:
+      return Object.assign({}, state, {
+        pageUpButtonIsVisible: true
+      });
 
     // this action updates the list of all fonts, so that it accurately represents user's faves
     //   ie. the heart button on each font card is accurately filled in (or not)

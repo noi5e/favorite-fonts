@@ -1,12 +1,14 @@
 import {
   DISLIKE_FONT,
   FETCH_DISPLAY_FONTS,
+  HIDE_PAGE_UP_BUTTON,
   LIKE_FONT,
   LOAD_ALL_FONTS,
   LOAD_FAVORITE_FONTS,
   REQUEST_FONTS,
   RECEIVE_FONTS,
   RESET_FONT_OPTIONS,
+  SHOW_PAGE_UP_BUTTON,
   UPDATE_FAVES,
   UPDATE_FONT_SIZE,
   UPDATE_SAMPLE_TEXT,
@@ -22,6 +24,10 @@ export const dislikeFont = font => ({
 
 export const fetchDisplayFonts = () => ({
   type: FETCH_DISPLAY_FONTS
+});
+
+export const hidePageUpButton = () => ({
+  type: HIDE_PAGE_UP_BUTTON
 });
 
 export const likeFont = font => ({
@@ -48,6 +54,10 @@ export const receiveFonts = fonts => ({
 
 export const resetFontOptions = () => ({
   type: RESET_FONT_OPTIONS
+});
+
+export const showPageUpButton = () => ({
+  type: SHOW_PAGE_UP_BUTTON
 });
 
 export const updateFaves = faves => ({
