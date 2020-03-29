@@ -28,6 +28,7 @@ const initialState = {
   sampleText: "The quick brown fox jumped over the lazy dog.",
   searchTerm: "",
   user: {},
+  userHasEnteredSampleText: false,
   viewingFavorites: false
 };
 
@@ -265,7 +266,10 @@ export default function(state = initialState, action) {
         newSampleText = action.text;
       }
 
-      return Object.assign({}, state, { sampleText: newSampleText });
+      return Object.assign({}, state, {
+        sampleText: newSampleText,
+        userHasEnteredSampleText: action.text.length > 0
+      });
     }
 
     case UPDATE_SEARCH_TERM: {

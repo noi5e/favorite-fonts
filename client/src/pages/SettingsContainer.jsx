@@ -15,7 +15,8 @@ const SettingsContainer = ({
   searchTerm,
   updateSampleText,
   updateSearchTerm,
-  updateFontSize
+  updateFontSize,
+  userHasEnteredSampleText
 }) => {
   return (
     <div id="search-tools" className="input-group">
@@ -34,7 +35,12 @@ const SettingsContainer = ({
         aria-label="enter sample text"
         className="form-control"
         placeholder="Type something!"
-        value={sampleText === "The quick brown fox jumped over the lazy dog." ? "" : sampleText}
+        value={
+          sampleText === "The quick brown fox jumped over the lazy dog." &&
+          !userHasEnteredSampleText
+            ? ""
+            : sampleText
+        }
         onChange={e => updateSampleText(e.target.value)}
       />
       <select
@@ -65,7 +71,8 @@ const SettingsContainer = ({
 const mapStateToProps = state => ({
   fontSize: state.fontSize,
   sampleText: state.sampleText,
-  searchTerm: state.searchTerm
+  searchTerm: state.searchTerm,
+  userHasEnteredSampleText: state.userHasEnteredSampleText
 });
 
 const mapDispatchToProps = {
