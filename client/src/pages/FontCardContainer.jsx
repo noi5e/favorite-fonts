@@ -6,7 +6,7 @@ import debounce from "lodash.debounce";
 
 import {
   dislikeFont,
-  fetchDisplayFonts,
+  displayMoreFonts,
   likeFont,
   loadAllFonts,
   requestFonts,
@@ -24,8 +24,8 @@ const FontCardContainer = ({
   isFetching,
   likeFont,
   loadAllFonts,
-  fetchDisplayFonts,
-  moreFontsToFetch,
+  displayMoreFonts,
+  moreFontsToDisplay,
   requestFonts,
   receiveFonts,
   sampleText,
@@ -36,9 +36,9 @@ const FontCardContainer = ({
     if (
       window.innerHeight + document.documentElement.scrollTop >=
         document.body.offsetHeight &&
-      moreFontsToFetch
+      moreFontsToDisplay
     ) {
-      fetchDisplayFonts();
+      displayMoreFonts();
     }
   }, 100);
 
@@ -121,7 +121,7 @@ const mapStateToProps = state => ({
   fonts: state.fonts,
   fontSize: state.fontSize,
   isFetching: state.isFetching,
-  moreFontsToFetch: state.moreFontsToFetch,
+  moreFontsToDisplay: state.moreFontsToDisplay,
   sampleText: state.sampleText,
   user: state.user
 });
@@ -130,7 +130,7 @@ const mapDispatchToProps = {
   dislikeFont,
   likeFont,
   loadAllFonts,
-  fetchDisplayFonts,
+  displayMoreFonts,
   requestFonts,
   receiveFonts,
   updateFaves

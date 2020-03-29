@@ -1,6 +1,6 @@
 import {
   DISLIKE_FONT,
-  FETCH_DISPLAY_FONTS,
+  DISPLAY_MORE_FONTS,
   HIDE_PAGE_UP_BUTTON,
   LIKE_FONT,
   LOAD_ALL_FONTS,
@@ -22,8 +22,8 @@ export const dislikeFont = font => ({
   font
 });
 
-export const fetchDisplayFonts = () => ({
-  type: FETCH_DISPLAY_FONTS
+export const displayMoreFonts = () => ({
+  type: DISPLAY_MORE_FONTS
 });
 
 export const hidePageUpButton = () => ({

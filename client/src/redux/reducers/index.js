@@ -1,6 +1,6 @@
 import {
   DISLIKE_FONT,
-  FETCH_DISPLAY_FONTS,
+  DISPLAY_MORE_FONTS,
   HIDE_PAGE_UP_BUTTON,
   LIKE_FONT,
   LOAD_ALL_FONTS,
@@ -23,9 +23,10 @@ const initialState = {
   displayedFonts: [],
   fonts: [],
   fontSize: "40px",
-  moreFontsToFetch: true,
+  moreFontsToDisplay: true,
   pageUpButtonIsVisible: false,
   sampleText: "The quick brown fox jumped over the lazy dog.",
+  searchMatchesFonts: true,
   searchTerm: "",
   user: {},
   userHasEnteredSampleText: false,
@@ -40,13 +41,16 @@ const getDisplayState = (searchTerm, fonts) => {
       font => font.family.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1
     );
 
+    let searchMatchesFonts = matchingFonts.length > 0;
+
     // app displays 32 fonts at one time. if there are more than 32 matching fonts, then flags this var as true
-    let moreFontsToFetch = matchingFonts.length > 32;
+    let moreFontsToDisplay = matchingFonts.length > 32;
 
     return {
       displayedFonts: matchingFonts.slice(0, 32),
       displayPosition: 32,
-      moreFontsToFetch,
+      moreFontsToDisplay,
+      searchMatchesFonts,
       searchTerm
     };
   } else {
@@ -54,7 +58,8 @@ const getDisplayState = (searchTerm, fonts) => {
     return {
       displayedFonts: fonts.slice(0, 32),
       displayPosition: 32,
-      moreFontsToFetch: fonts.length > 32,
+      moreFontsToDisplay: fonts.length > 32,
+      searchMatchesFonts: true,
       searchTerm
     };
   }
@@ -77,8 +82,8 @@ export default function(state = initialState, action) {
       });
     }
 
-    // if the user scrolls to the bottom of the page, this action FETCHes more fonts
-    case FETCH_DISPLAY_FONTS: {
+    // if the user scrolls to the bottom of the page, this action fetches more fonts
+    case DISPLAY_MORE_FONTS: {
       if (state.searchTerm.length > 0) {
         // if there's a search term entered, we need to load from the fonts matching search term, NOT all fonts.
         let newDisplayedFonts = state.fonts.filter(
@@ -87,7 +92,7 @@ export default function(state = initialState, action) {
             -1
         );
 
-        let moreFontsToFetch =
+        let moreFontsToDisplay =
           state.displayPosition + 30 < newDisplayedFonts.length;
         newDisplayedFonts = newDisplayedFonts.slice(
           state.displayPosition,
@@ -97,7 +102,7 @@ export default function(state = initialState, action) {
         return Object.assign({}, state, {
           displayPosition: state.displayPosition + 30,
           displayedFonts: state.displayedFonts.concat(newDisplayedFonts),
-          moreFontsToFetch
+          moreFontsToDisplay
         });
       } else {
         // if there's no search term entered, load new fonts straight from all fonts
@@ -109,7 +114,7 @@ export default function(state = initialState, action) {
         return Object.assign({}, state, {
           displayPosition: state.displayPosition + 30,
           displayedFonts: state.displayedFonts.concat(loadedFonts),
-          moreFontsToFetch: state.displayPosition + 30 < state.fonts.length
+          moreFontsToDisplay: state.displayPosition + 30 < state.fonts.length
         });
       }
     }
@@ -125,20 +130,20 @@ export default function(state = initialState, action) {
         const {
           displayedFonts,
           displayPosition,
-          moreFontsToFetch
+          moreFontsToDisplay
         } = getDisplayState(state.searchTerm, state.fonts);
 
         return Object.assign({}, state, {
           displayedFonts,
           displayPosition,
-          moreFontsToFetch,
+          moreFontsToDisplay,
           viewingFavorites: false
         });
       } else {
         return Object.assign({}, state, {
           displayedFonts: state.fonts.slice(0, 32),
           displayPosition: 32,
-          moreFontsToFetch: true,
+          moreFontsToDisplay: true,
           viewingFavorites: false
         });
       }
@@ -152,13 +157,13 @@ export default function(state = initialState, action) {
         const {
           displayedFonts,
           displayPosition,
-          moreFontsToFetch
+          moreFontsToDisplay
         } = getDisplayState(state.searchTerm, favoriteFonts);
 
         return Object.assign({}, state, {
           displayedFonts,
           displayPosition,
-          moreFontsToFetch,
+          moreFontsToDisplay,
           viewingFavorites: true
         });
       } else {
@@ -167,13 +172,13 @@ export default function(state = initialState, action) {
         const {
           displayedFonts,
           displayPosition,
-          moreFontsToFetch
+          moreFontsToDisplay
         } = getDisplayState("", favoriteFonts);
 
         return Object.assign({}, state, {
           displayedFonts,
           displayPosition,
-          moreFontsToFetch,
+          moreFontsToDisplay,
           viewingFavorites: true
         });
       }

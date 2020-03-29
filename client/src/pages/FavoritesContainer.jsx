@@ -7,7 +7,7 @@ import debounce from "lodash.debounce";
 import FontCard from "./FontCard.jsx";
 import {
   dislikeFont,
-  fetchDisplayFonts,
+  displayMoreFonts,
   likeFont,
   loadFavoriteFonts
 } from "../redux/actions";
@@ -17,18 +17,18 @@ const FavoritesContainer = ({
   likeFont,
   dislikeFont,
   displayedFonts,
-  fetchDisplayFonts,
+  displayMoreFonts,
   sampleText,
   loadFavoriteFonts,
-  moreFontsToFetch
+  moreFontsToDisplay
 }) => {
   const checkForBottomScroll = debounce(() => {
     if (
       window.innerHeight + document.documentElement.scrollTop >=
         document.body.offsetHeight &&
-      moreFontsToFetch
+      moreFontsToDisplay
     ) {
-      fetchDisplayFonts();
+      displayMoreFonts();
     }
   }, 100);
 
@@ -78,12 +78,12 @@ const mapStateToProps = state => ({
   displayedFonts: state.displayedFonts,
   fonts: state.fonts,
   sampleText: state.sampleText,
-  moreFontsToFetch: state.moreFontsToFetch
+  moreFontsToDisplay: state.moreFontsToDisplay
 });
 
 const mapDispatchToProps = {
   dislikeFont,
-  fetchDisplayFonts,
+  displayMoreFonts,
   likeFont,
   loadFavoriteFonts
 };
