@@ -1,15 +1,19 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import { deAuthenticateUser } from "../utilities/authentication";
-import { userLogout } from "../redux/actions";
+import { clearUserLikes, userLogout } from "../redux/actions";
 
-const AuthHeader = ({ userLogout }) => {
+const AuthHeader = ({ clearUserLikes, userLogout }) => {
+  let history = useHistory();
+
   const logoutUser = e => {
     e.preventDefault();
     deAuthenticateUser();
     userLogout();
+    clearUserLikes();
+    history.push("/");
   };
 
   return (
@@ -27,6 +31,6 @@ const AuthHeader = ({ userLogout }) => {
   );
 };
 
-const mapDispatchToProps = { userLogout };
+const mapDispatchToProps = { clearUserLikes, userLogout };
 
 export default connect(null, mapDispatchToProps)(AuthHeader);
