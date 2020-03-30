@@ -242,7 +242,8 @@ export default function(state = initialState, action) {
         {
           searchTerm: "",
           sampleText: "The quick brown fox jumped over the lazy dog.",
-          fontSize: "40px"
+          fontSize: "40px",
+          userHasEnteredSampleText: false
         },
         getDisplayState("", fonts)
       );
