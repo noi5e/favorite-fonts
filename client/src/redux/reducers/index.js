@@ -1,4 +1,5 @@
 import {
+  CLEAR_USER_LIKES,
   DISLIKE_FONT,
   DISPLAY_MORE_FONTS,
   HIDE_PAGE_UP_BUTTON,
@@ -67,6 +68,19 @@ const getDisplayState = (searchTerm, fonts) => {
 
 export default function(state = initialState, action) {
   switch (action.type) {
+    // action to reset every font to disliked, if user logs out.
+    case CLEAR_USER_LIKES: {
+      const modifiedFonts = [...state.fonts];
+
+      for (let i = 0; i < modifiedFonts.length; i++) {
+        modifiedFonts[i].liked = false;
+      }
+
+      return Object.assign({}, state, {
+        fonts: modifiedFonts
+      });
+    }
+
     case DISLIKE_FONT: {
       const modifiedFonts = [...state.fonts];
 

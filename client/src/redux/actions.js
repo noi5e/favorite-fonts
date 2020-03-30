@@ -1,4 +1,5 @@
 import {
+  CLEAR_USER_LIKES,
   DISLIKE_FONT,
   DISPLAY_MORE_FONTS,
   HIDE_PAGE_UP_BUTTON,
@@ -16,6 +17,10 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGOUT
 } from "./actionTypes";
+
+export const clearUserLikes = () => ({
+  type: CLEAR_USER_LIKES
+});
 
 export const dislikeFont = font => ({
   type: DISLIKE_FONT,
