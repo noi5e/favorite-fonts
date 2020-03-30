@@ -29,6 +29,7 @@ const FontCardContainer = ({
   requestFonts,
   receiveFonts,
   sampleText,
+  searchMatchesFonts,
   updateFaves,
   user
 }) => {
@@ -100,20 +101,24 @@ const FontCardContainer = ({
     })();
   };
 
-  const fontCards = !isFetching
-    ? displayedFonts.map((font, index) => (
-        <FontCard
-          key={index}
-          fontName={font.family}
-          fontSize={fontSize}
-          handleFave={handleFave}
-          sampleText={sampleText}
-          liked={font.liked}
-        />
-      ))
-    : "Loading...";
+  if (!searchMatchesFonts) {
+    return <div id="message">No matching fonts found.</div>;
+  } else if (isFetching) {
+    return <div id="message">Loading...</div>;
+  } else {
+    const fontCards = displayedFonts.map((font, index) => (
+      <FontCard
+        key={index}
+        fontName={font.family}
+        fontSize={fontSize}
+        handleFave={handleFave}
+        sampleText={sampleText}
+        liked={font.liked}
+      />
+    ));
 
-  return <div id="font-card-container">{fontCards}</div>;
+    return <div id="font-card-container">{fontCards}</div>;
+  }
 };
 
 const mapStateToProps = state => ({
@@ -123,6 +128,7 @@ const mapStateToProps = state => ({
   isFetching: state.isFetching,
   moreFontsToDisplay: state.moreFontsToDisplay,
   sampleText: state.sampleText,
+  searchMatchesFonts: state.searchMatchesFonts,
   user: state.user
 });
 

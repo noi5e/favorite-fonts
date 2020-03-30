@@ -130,13 +130,15 @@ export default function(state = initialState, action) {
         const {
           displayedFonts,
           displayPosition,
-          moreFontsToDisplay
+          moreFontsToDisplay,
+          searchMatchesFonts
         } = getDisplayState(state.searchTerm, state.fonts);
 
         return Object.assign({}, state, {
           displayedFonts,
           displayPosition,
           moreFontsToDisplay,
+          searchMatchesFonts,
           viewingFavorites: false
         });
       } else {
@@ -144,6 +146,7 @@ export default function(state = initialState, action) {
           displayedFonts: state.fonts.slice(0, 32),
           displayPosition: 32,
           moreFontsToDisplay: true,
+          searchMatchesFonts: true,
           viewingFavorites: false
         });
       }
@@ -157,13 +160,15 @@ export default function(state = initialState, action) {
         const {
           displayedFonts,
           displayPosition,
-          moreFontsToDisplay
+          moreFontsToDisplay,
+          searchMatchesFonts
         } = getDisplayState(state.searchTerm, favoriteFonts);
 
         return Object.assign({}, state, {
           displayedFonts,
           displayPosition,
           moreFontsToDisplay,
+          searchMatchesFonts,
           viewingFavorites: true
         });
       } else {
@@ -179,6 +184,7 @@ export default function(state = initialState, action) {
           displayedFonts,
           displayPosition,
           moreFontsToDisplay,
+          searchMatchesFonts: true,
           viewingFavorites: true
         });
       }

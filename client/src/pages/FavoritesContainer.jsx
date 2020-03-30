@@ -20,7 +20,8 @@ const FavoritesContainer = ({
   displayMoreFonts,
   sampleText,
   loadFavoriteFonts,
-  moreFontsToDisplay
+  moreFontsToDisplay,
+  searchMatchesFonts
 }) => {
   const checkForBottomScroll = debounce(() => {
     if (
@@ -61,24 +62,29 @@ const FavoritesContainer = ({
     })();
   };
 
-  const favoriteFonts = displayedFonts.map((font, index) => (
-    <FontCard
-      key={index}
-      fontName={font.family}
-      handleFave={handleFave}
-      sampleText={sampleText}
-      liked={font.liked}
-    />
-  ));
+  if (!searchMatchesFonts) {
+    return <div id="message">No matching fonts found.</div>;
+  } else {
+    const favoriteFonts = displayedFonts.map((font, index) => (
+      <FontCard
+        key={index}
+        fontName={font.family}
+        handleFave={handleFave}
+        sampleText={sampleText}
+        liked={font.liked}
+      />
+    ));
 
-  return <div id="font-card-container">{favoriteFonts}</div>;
+    return <div id="font-card-container">{favoriteFonts}</div>;
+  }
 };
 
 const mapStateToProps = state => ({
   displayedFonts: state.displayedFonts,
   fonts: state.fonts,
   sampleText: state.sampleText,
-  moreFontsToDisplay: state.moreFontsToDisplay
+  moreFontsToDisplay: state.moreFontsToDisplay,
+  searchMatchesFonts: state.searchMatchesFonts
 });
 
 const mapDispatchToProps = {
