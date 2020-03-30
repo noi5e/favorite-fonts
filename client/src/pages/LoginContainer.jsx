@@ -1,12 +1,14 @@
 /* eslint-disable no-undef */
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
+import io from 'socket.io-client';
 
 import { userLoginSuccess } from "../redux/actions";
 import { authenticateUser } from "../utilities/authentication";
 
 const LoginContainer = ({ userLoginSuccess }) => {
   let popup;
+  const socket = io();
 
   useEffect(() => {
     socket.on("login-success", data => {
