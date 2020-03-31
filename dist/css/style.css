@@ -43,10 +43,6 @@
   border-radius: 0;
 }
 
-a.nav-link.login-button:hover {
-  background-color: #f00;
-}
-
 .font-author {
   opacity: 0.6;
 }
@@ -69,11 +65,6 @@ a.nav-link.login-button:hover {
 
 .invisible {
   display: none;
-}
-
-.login-button {
-  color: #fff !important;
-  background-color: #d00;
 }
 
 .like-button {
@@ -152,9 +143,24 @@ body {
 /* the following media query contains rules for any resolution larger than 600px. its CSS constructs the grid to display the header and font cards in rows and columns. */
 
 @media (min-width: 600px) {
+  a.nav-link.login-button:hover {
+    background-color: #f00;
+  }
+
+  a.nav-link.auth-link:hover {
+    color: #343a40
+  }
+
+  .active-link {
+    font-weight: bold;
+    border-bottom: 10px black solid;
+  }
+
   .login-button {
     /* border: solid 1px #d00; */
     padding: 5px 20px;
+    color: #fff !important;
+    background-color: #d00;
     border-radius: 40px;
   }
 
@@ -163,7 +169,7 @@ body {
   }
 
   .auth-link {
-    padding: 0px !important;
+    padding: 8px 0px !important;
   }
 
   #container {
