@@ -97,6 +97,10 @@ body {
 /* this media query is for screens smaller than 600px, eg. smartphones. it removes the CSS grid and collapses the layout into what is essentially one column. */
 
 @media (max-width: 599px) {
+  .active-link {
+    background-color: #f00 !important;
+  }
+
   #header-logo {
     font-size: 36px;
     text-align: center;
