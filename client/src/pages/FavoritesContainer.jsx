@@ -10,7 +10,10 @@ import {
   dislikeFont,
   displayMoreFonts,
   likeFont,
-  loadFavoriteFonts
+  loadFavoriteFonts,
+  receiveFonts,
+  requestFonts,
+  updateFaves
 } from "../redux/actions";
 import { getUser, isUserAuthenticated } from "../utilities/authentication";
 
@@ -19,11 +22,14 @@ const FavoritesContainer = ({
   dislikeFont,
   displayedFonts,
   displayMoreFonts,
+  fonts,
   fontSize,
   sampleText,
   loadFavoriteFonts,
   moreFontsToDisplay,
-  searchMatchesFonts
+  receiveFonts,
+  searchMatchesFonts,
+  updateFaves
 }) => {
   const checkForBottomScroll = debounce(() => {
     if (
@@ -35,10 +41,31 @@ const FavoritesContainer = ({
     }
   }, 100);
 
+  const fetchFaves = async () => {
+    const favesResult = await axios({
+      url: "/api/get_user_faves",
+      method: "post",
+      headers: { Authorization: `Bearer ${JSON.parse(getUser()).token}` }
+    });
+
+    updateFaves(favesResult.data);
+  };
+
   useEffect(() => {
     window.scrollTo(0, 0);
-    // resetDisplayedFonts();
-    loadFavoriteFonts();
+
+    if (fonts.length === 0) {
+      (async () => {
+        console.log("getting fonts");
+        requestFonts();
+        const fontsResult = await axios("/api/get_all_fonts");
+        receiveFonts(fontsResult.data);
+        await fetchFaves();
+        loadFavoriteFonts();
+      })();
+    } else {
+      loadFavoriteFonts();
+    }
   }, []);
 
   useEffect(() => {
@@ -64,11 +91,8 @@ const FavoritesContainer = ({
     })();
   };
 
-  console.log(isUserAuthenticated());
-
-  if (!isUserAuthenticated()) { 
-    console.log("user isn't authenticated");
-    return <Redirect to="/" />
+  if (!isUserAuthenticated()) {
+    return <Redirect to="/" />;
   } else if (!searchMatchesFonts) {
     return <div id="message">No matching fonts found.</div>;
   } else {
@@ -100,7 +124,10 @@ const mapDispatchToProps = {
   dislikeFont,
   displayMoreFonts,
   likeFont,
-  loadFavoriteFonts
+  loadFavoriteFonts,
+  receiveFonts,
+  requestFonts,
+  updateFaves
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FavoritesContainer);
